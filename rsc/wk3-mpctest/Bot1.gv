@@ -1,0 +1,92 @@
+digraph G {
+node [shape=box];
+"SACRUM" [label="SACRUM"];
+"INERTIA" [label="INERTIA"];
+"ILIUM_L" [label="ILIUM_L"];
+"ISCHIUM_L" [label="ISCHIUM_L"];
+"THIGH_L" [label="THIGH_L"];
+"SHANK_L" [label="SHANK_L"];
+"ASTRAGALUS_L" [label="ASTRAGALUS_L"];
+"FOOT_L" [label="FOOT_L"];
+"TIPTOE_L" [label="TIPTOE_L"];
+"ILIUM_R" [label="ILIUM_R"];
+"ISCHIUM_R" [label="ISCHIUM_R"];
+"THIGH_R" [label="THIGH_R"];
+"SHANK_R" [label="SHANK_R"];
+"ASTRAGALUS_R" [label="ASTRAGALUS_R"];
+"FOOT_R" [label="FOOT_R"];
+"TIPTOE_R" [label="TIPTOE_R"];
+"TORSO" [label="TORSO"];
+"LIDAR" [label="LIDAR"];
+"SCAPULA_L" [label="SCAPULA_L"];
+"SHOULDER_L" [label="SHOULDER_L"];
+"UPPERARM_L" [label="UPPERARM_L"];
+"FOREARM_L" [label="FOREARM_L"];
+"HAND_L" [label="HAND_L"];
+"SCAPULA_R" [label="SCAPULA_R"];
+"SHOULDER_R" [label="SHOULDER_R"];
+"UPPERARM_R" [label="UPPERARM_R"];
+"FOREARM_R" [label="FOREARM_R"];
+"HAND_R" [label="HAND_R"];
+"ARMOR" [label="ARMOR"];
+"CHEST" [label="CHEST"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"SACRUM" -> "BASE2INER" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"BASE2INER" -> "INERTIA"
+"SACRUM" -> "HIP_Z_L" [label="xyz: 0 0.045 -0.102 \nrpy: 0 -0 0"]
+"HIP_Z_L" -> "ILIUM_L"
+"ILIUM_L" -> "HIP_X_L" [label="xyz: 0 0.047 -0.0985 \nrpy: 0 -0 0"]
+"HIP_X_L" -> "ISCHIUM_L"
+"ISCHIUM_L" -> "HIP_Y_L" [label="xyz: 0 0.03 0 \nrpy: 0 -0 0"]
+"HIP_Y_L" -> "THIGH_L"
+"THIGH_L" -> "KNEE_L" [label="xyz: 0 0 -0.35 \nrpy: 0 -0 0"]
+"KNEE_L" -> "SHANK_L"
+"SHANK_L" -> "ANKLE_X_L" [label="xyz: 0.023 0 -0.35 \nrpy: 0 -0 0"]
+"ANKLE_X_L" -> "ASTRAGALUS_L"
+"ASTRAGALUS_L" -> "ANKLE_Y_L" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"ANKLE_Y_L" -> "FOOT_L"
+"FOOT_L" -> "ANKLE_Z_L" [label="xyz: 0 0 -0.039 \nrpy: 0 -0 0"]
+"ANKLE_Z_L" -> "TIPTOE_L"
+"SACRUM" -> "HIP_Z_R" [label="xyz: 0 -0.045 -0.102 \nrpy: 0 -0 0"]
+"HIP_Z_R" -> "ILIUM_R"
+"ILIUM_R" -> "HIP_X_R" [label="xyz: 0 -0.047 -0.0985 \nrpy: 0 -0 0"]
+"HIP_X_R" -> "ISCHIUM_R"
+"ISCHIUM_R" -> "HIP_Y_R" [label="xyz: 0 -0.03 0 \nrpy: 0 -0 0"]
+"HIP_Y_R" -> "THIGH_R"
+"THIGH_R" -> "KNEE_R" [label="xyz: 0 0 -0.35 \nrpy: 0 -0 0"]
+"KNEE_R" -> "SHANK_R"
+"SHANK_R" -> "ANKLE_X_R" [label="xyz: 0.023 0 -0.35 \nrpy: 0 -0 0"]
+"ANKLE_X_R" -> "ASTRAGALUS_R"
+"ASTRAGALUS_R" -> "ANKLE_Y_R" [label="xyz: 0 0 0 \nrpy: 0 -0 0"]
+"ANKLE_Y_R" -> "FOOT_R"
+"FOOT_R" -> "ANKLE_Z_R" [label="xyz: 0.00025321 0 -0.038999 \nrpy: 0 -0 0"]
+"ANKLE_Z_R" -> "TIPTOE_R"
+"SACRUM" -> "WAIST" [label="xyz: 0 0 0.429 \nrpy: 0 -0 0"]
+"WAIST" -> "TORSO"
+"TORSO" -> "NECK" [label="xyz: 3.618e-05 2.0102e-05 0.0405 \nrpy: 0 -0 0"]
+"NECK" -> "LIDAR"
+"TORSO" -> "SHOULDER_Z_L" [label="xyz: 0.019 0.17 -0.1185 \nrpy: 0 -0 0"]
+"SHOULDER_Z_L" -> "SCAPULA_L"
+"SCAPULA_L" -> "SHOULDER_X_L" [label="xyz: -0.02 0 0.0655 \nrpy: 0 -0 0"]
+"SHOULDER_X_L" -> "SHOULDER_L"
+"SHOULDER_L" -> "SHOULDER_Y_L" [label="xyz: 0.0435 0.0355 0 \nrpy: 0 -0 0"]
+"SHOULDER_Y_L" -> "UPPERARM_L"
+"UPPERARM_L" -> "ELBOW_L" [label="xyz: 0.0065442 0.027 -0.24991 \nrpy: 0 -0 0"]
+"ELBOW_L" -> "FOREARM_L"
+"FOREARM_L" -> "WRIST_L" [label="xyz: 0.30567 -0.009 -0.005 \nrpy: 0 -0 0"]
+"WRIST_L" -> "HAND_L"
+"TORSO" -> "SHOULDER_Z_R" [label="xyz: 0.019 -0.17 -0.1185 \nrpy: 0 -0 0"]
+"SHOULDER_Z_R" -> "SCAPULA_R"
+"SCAPULA_R" -> "SHOULDER_X_R" [label="xyz: -0.022 0 0.0655 \nrpy: 0 -0 0"]
+"SHOULDER_X_R" -> "SHOULDER_R"
+"SHOULDER_R" -> "SHOULDER_Y_R" [label="xyz: 0.0455 -0.0355 0 \nrpy: 0 -0 0"]
+"SHOULDER_Y_R" -> "UPPERARM_R"
+"UPPERARM_R" -> "ELBOW_R" [label="xyz: 0.0065442 -0.027 -0.24991 \nrpy: 0 -0 0"]
+"ELBOW_R" -> "FOREARM_R"
+"FOREARM_R" -> "WRIST_R" [label="xyz: 0.30567 0.009 -0.005 \nrpy: 0 -0 0"]
+"WRIST_R" -> "HAND_R"
+"TORSO" -> "SPINE" [label="xyz: 0.13635 0 -0.32373 \nrpy: 0 -0 0"]
+"SPINE" -> "ARMOR"
+"TORSO" -> "STERN" [label="xyz: 0.093 0 -0.1095 \nrpy: 0 -0 0"]
+"STERN" -> "CHEST"
+}

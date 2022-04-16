@@ -1,0 +1,690 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot name="Bot1">
+
+  <link name="SACRUM">
+    <inertial>
+      <origin xyz="0 0 0"/>
+      <mass value="0" />
+      <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/SACRUM.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="INERTIA">
+    <inertial>
+      <origin xyz="0.00073495 0.025108 -0.050816" />
+      <mass value="2.6813" />
+      <inertia ixx="0.0028802" ixy="-3.2969E-08" ixz="2.5832E-06" iyy="0.0026856" iyz="-9.7745E-08" izz="0.0046874" />
+    </inertial>
+  </link>
+
+  <joint name="BASE2INER" type="fixed">
+    <origin xyz="0 0 0" />
+    <parent link="SACRUM" />
+    <child link="INERTIA" />
+  </joint>
+
+  <link name="TORSO">
+    <inertial>
+      <origin xyz="0.00274 0 -0.275"/>
+      <mass value="13.953" />
+      <inertia ixx="0.05290854" ixy="1.084662E-5" ixz="6.20565E-5" iyy="0.04375477" iyz="-1.17425E-5" izz="0.0491431" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/TORSO.dae" />
+      </geometry>
+    </visual>
+     <collision>
+      <origin xyz="0 0 -0.2"/>
+      <geometry>
+        <box size="0.2 0.31 0.48"/>
+      </geometry>
+    </collision> 
+  </link>
+
+  <joint name="WAIST" type="revolute">
+    <origin xyz="0 0 0.429" />
+    <parent link="SACRUM" />
+    <child link="TORSO" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.5" upper="0.5" effort="57.143" velocity="20" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="CHEST">
+    <inertial>
+      <origin xyz="0.0234167 1.128E-06 -0.0227" />
+      <mass value="0.267355198276599" />
+      <inertia ixx="0.0026454" ixy="5.5E-8" ixz="9.73E-5" iyy="0.00077" iyz="-1.65E-8" izz="0.00198" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/CHEST.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="STERN" type="fixed">
+    <origin xyz="0.093 0 -0.1095" />
+    <parent link="TORSO" />
+    <child link="CHEST" />
+  </joint>
+
+  <link name="ARMOR">
+    <inertial>
+      <origin xyz="-0.14601 -0.00018651 0.0962"/>
+      <mass value="0.67865" />
+      <inertia ixx="0.010573" ixy="-2.4517E-7" ixz="0.00024944" iyy="0.004398" iyz="-1.3245E-05" izz="0.0070098" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/ARMOR.dae" />
+      </geometry>
+    </visual>
+  </link>
+  
+  <joint name="SPINE" type="fixed">
+    <origin xyz="0.13635 0 -0.32373"/>
+    <parent link="TORSO" />
+    <child link="ARMOR" />
+  </joint>
+<link name="SCAPULA_R">
+    <inertial>
+      <origin xyz="-0.052882 2.2108E-07 0.062889" />
+      <mass value="0.8926" />
+      <inertia ixx="0.00054218" ixy="4.9883E-09" ixz="3.4357E-05" iyy="0.0003997" iyz="-2.6514E-08" izz="0.00034239" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/SCAPULA.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="SHOULDER_Z_R" type="revolute">
+    <origin xyz="0.019 -0.17 -0.1185" />
+    <parent link="TORSO" />
+    <child link="SCAPULA_R" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-1.2" upper="1.2" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="SHOULDER_R">
+    <inertial>
+      <origin xyz="0.043886 0.0040731 -4.0908E-06" />
+      <mass value="0.88224" />
+      <inertia ixx="0.00033196" ixy="3.8519E-06" ixz="-3.2106E-08" iyy="0.00049084" iyz="1.2632E-08" izz="0.00032286" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/SHOULDER_R.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="SHOULDER_X_R" type="revolute">
+    <origin xyz="-0.022 0 0.0655" />
+    <parent link="SCAPULA_R" />
+    <child link="SHOULDER_R" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-1.35" upper="0.35" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="UPPERARM_R">
+    <inertial>
+      <origin xyz="0.0008426 -0.033656 -0.042233" />
+      <mass value="1.326" />
+      <inertia ixx="0.0025601" ixy="1.364E-06" ixz="3.3558E-05" iyy="0.00265" iyz="6.347E-05" izz="0.00045516" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/UPPERARM_R.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.02 -0.13" />
+      <geometry>
+        <box size="0.05 0.05 0.26" />
+      </geometry>
+    </collision> 
+  </link>
+
+  <joint name="SHOULDER_Y_R" type="revolute">
+    <origin xyz="0.0455 -0.0355 0" />
+    <parent link="SHOULDER_R" />
+    <child link="UPPERARM_R" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.7" upper="2.7" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="FOREARM_R">
+    <inertial>
+      <origin xyz="0.11872 0.0045096 -0.011379" />
+      <mass value="0.28426" />
+      <inertia ixx="7.0221E-05" ixy="-6.144E-06" ixz="-3.4117E-05" iyy="0.0013049" iyz="-3.5324E-07" izz="0.0012695" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/FOREARM_R.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="ELBOW_R" type="revolute">
+    <origin xyz="0.0065442 -0.027 -0.24991" />
+    <parent link="UPPERARM_R" />
+    <child link="FOREARM_R" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1" upper="1" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="HAND_R">
+    <inertial>
+      <origin xyz="-0.0083567 1.0672E-12 2.0872E-14" />
+      <mass value="0.055635" />
+      <inertia ixx="9.1932E-06" ixy="2.1635E-21" ixz="1.24E-21" iyy="1.0684E-05" iyz="-5.7763E-22" izz="1.0684E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.015 0 -0.01" />
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+    </visual> 
+    <collision>
+      <origin xyz="-0.015 0 -0.01" />
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+    </collision> 
+  </link>
+
+  <joint name="WRIST_R" type="fixed">
+    <origin xyz="0.30567 0.009 -0.005" />
+    <parent link="FOREARM_R" />
+    <child link="HAND_R" />
+    <axis xyz="0 0 0" />
+    <limit lower="-1.57" upper="1.57" effort="10000" velocity="10000" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="SCAPULA_L">
+    <inertial>
+      <origin xyz="-0.052882 2.6497E-06 0.062891" />
+      <mass value="0.8926" />
+      <inertia ixx="0.00054218" ixy="4.7371E-08" ixz="3.4385E-05" iyy="0.00039964" iyz="-1.3291E-09" izz="0.00034245" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/SCAPULA.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="SHOULDER_Z_L" type="revolute">
+    <origin xyz="0.019 0.17 -0.1185" />
+    <parent link="TORSO" />
+    <child link="SCAPULA_L" />
+    <axis xyz="0 0 1" />
+    <limit lower="-1.2" upper="1.2" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="SHOULDER_L">
+    <inertial>
+      <origin xyz="0.04188 -0.0040731 7.2972E-06" />
+      <mass value="0.88224" />
+      <inertia ixx="0.00033196" ixy="-3.9428E-06" ixz="3.0327E-08" iyy="0.00049084" iyz="6.7938E-08" izz="0.00032287" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/SHOULDER_L.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="SHOULDER_X_L" type="revolute">
+    <origin xyz="-0.02 0 0.0655" />
+    <parent link="SCAPULA_L" />
+    <child link="SHOULDER_L" />
+    <axis xyz="1 0 0" />
+    <limit lower="-1.35" upper="0.35" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="UPPERARM_L">
+    <inertial>
+      <origin xyz="0.00085356 0.032984 -0.042425" />
+      <mass value="1.3259" />
+      <inertia ixx="0.0025602" ixy="-1.4188E-06" ixz="3.1606E-05" iyy="0.0026499" iyz="-6.2317E-05" izz="0.00045488" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/UPPERARM_L.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.02 -0.13" />
+      <geometry>
+        <box size="0.05 0.05 0.26" />
+      </geometry>
+    </collision> 
+  </link>
+
+  <joint name="SHOULDER_Y_L" type="revolute">
+    <origin xyz="0.0435 0.0355 0" />
+    <parent link="SHOULDER_L" />
+    <child link="UPPERARM_L" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.7" upper="2.7" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="FOREARM_L">
+    <inertial>
+      <origin xyz="0.11871 -0.0045238 -0.011379" />
+      <mass value="0.28424" />
+      <inertia ixx="7.022E-05" ixy="5.9939E-06" ixz="-3.4115E-05" iyy="0.0013049" iyz="3.6963E-07" izz="0.0012696" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/FOREARM_L.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="ELBOW_L" type="revolute">
+    <origin xyz="0.0065442 0.027 -0.24991" />
+    <parent link="UPPERARM_L" />
+    <child link="FOREARM_L" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1" upper="1" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="HAND_L">
+    <inertial>
+      <origin xyz="-0.0083567 -2.74E-12 -4.9682E-15" />
+      <mass value="0.055635" />
+      <inertia ixx="9.1932E-06" ixy="2.1175E-21" ixz="0" iyy="1.0684E-05" iyz="-3.0619E-22" izz="1.0684E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.015 0 -0.01" />
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+    </visual> 
+    <collision>
+      <origin xyz="-0.015 0 -0.01" />
+      <geometry>
+        <sphere radius="0.03"/>
+      </geometry>
+    </collision> 
+  </link>
+
+  <joint name="WRIST_L" type="fixed">
+    <origin xyz="0.30567 -0.009 -0.005" />
+    <parent link="FOREARM_L" />
+    <child link="HAND_L" />
+    <axis xyz="0 0 0" />
+    <limit lower="-1.57" upper="1.57" effort="10000" velocity="10000" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+
+  <link name="ILIUM_R">
+    <inertial>
+      <origin xyz="-0.026506 -0.074073 0.027179" />
+      <mass value="1.8262" />
+      <inertia ixx="0.0019944" ixy="-1.3188E-05" ixz="1.424E-05" iyy="0.0031244" iyz="-8.9278E-05" izz="0.0027757" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/ILIUM_R.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="HIP_Z_R" type="revolute">
+    <origin xyz="0 -0.045 -0.102" />
+    <parent link="SACRUM" />
+    <child link="ILIUM_R" />
+    <axis xyz="0 0 -1" />
+    <limit lower="-0.3" upper="0.3" effort="57.143" velocity="20" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="ISCHIUM_R">
+    <inertial>
+      <origin xyz="0 0.032205 0.0002551" />
+      <mass value="4.4822" />
+      <inertia ixx="0.0068588" ixy="-1.256E-05" ixz="7.9817E-05" iyy="0.006179" iyz="-4.308E-06" izz="0.0070468" />
+    </inertial>
+    <visual>
+      <origin xyz="0.0875 0 0" />
+      <geometry>
+        <mesh filename="/meshes/ISCHIUM_R.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="HIP_X_R" type="revolute">
+    <origin xyz="0 -0.047 -0.0985" />
+    <parent link="ILIUM_R" />
+    <child link="ISCHIUM_R" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-0.261" upper="0.067" effort="80.667" velocity="20" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="THIGH_R">
+    <inertial>
+      <origin xyz="0.0033093 -0.033812 -0.03375" />
+      <mass value="5.2327" />
+      <inertia ixx="0.011473" ixy="3.812E-05" ixz="-0.00020821" iyy="0.017244" iyz="0.00028194" izz="0.00772" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0.017  0" />
+      <geometry>
+        <mesh filename="/meshes/THIGH_R.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0.017 -0.16" />
+      <geometry>
+        <cylinder length="0.32" radius="0.07"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="HIP_Y_R" type="revolute">
+    <origin xyz="0 -0.03 0" />
+    <parent link="ISCHIUM_R" />
+    <child link="THIGH_R" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.1" upper="2.1" effort="297.09" velocity="35" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="SHANK_R">
+    <inertial>
+      <origin xyz="0.013568 -0.033209 -0.05032" />
+      <mass value="3.119" />
+      <inertia ixx="0.0089662" ixy="1.2199E-05" ixz="0.00043455" iyy="0.0091259" iyz="-7.1289E-05" izz="0.0011905" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0.021 0 " />
+      <geometry>
+        <mesh filename="/meshes/SHANK_R.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="KNEE_R" type="revolute">
+    <origin xyz="0 0 -0.35" />
+    <parent link="THIGH_R" />
+    <child link="SHANK_R" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="2.625" effort="297.09" velocity="35" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="ASTRAGALUS_R">
+    <inertial>
+      <origin xyz="-2.7166E-06 0.0034745 -9.0803E-06" />
+      <mass value="0.054004" />
+      <inertia ixx="9.9574E-06" ixy="-1.0182E-19" ixz="8.178E-10" iyy="1.634E-06" iyz="-2.8203E-21" izz="1E-5" />
+    </inertial>
+  </link>
+
+  <joint name="ANKLE_X_R" type="revolute">
+    <origin xyz="0.023 0 -0.35" />
+    <parent link="SHANK_R" />
+    <child link="ASTRAGALUS_R" />
+    <axis xyz="-1 0 0" />
+    <limit lower="-0.226" upper="0.226" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="FOOT_R">
+    <inertial>
+      <origin xyz="0.000738 8.72527E-5 -0.022313" />
+      <mass value="0.3" />
+      <inertia ixx="0.000130350382902492" ixy="-2.38E-7" ixz="3.83E-6" iyy="0.00067882" iyz="-2.1447E-6" izz="0.00075" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/FOOT_R.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="ANKLE_Y_R" type="revolute">
+    <parent link="ASTRAGALUS_R" />
+    <child link="FOOT_R" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.05" upper="0" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="TIPTOE_R">
+    <inertial>
+      <origin xyz="-2.8207E-05 -1.2454E-08 0.00028929" />
+      <mass value="0.19191" />
+      <inertia ixx="0.00012647" ixy="3.1259E-10" ixz="-5.2066E-06" iyy="0.00080649" iyz="1.5695E-11" izz="0.000923" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/TIPTOE.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.18 0.08 0.013"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="ANKLE_Z_R" type="fixed">
+    <origin xyz="0.00025321 0 -0.038999" />
+    <parent link="FOOT_R" />
+    <child link="TIPTOE_R" />
+    <axis xyz="0 0 0" />
+    <limit lower="-1.57" upper="1.57" effort="10000" velocity="10000" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+
+  <link name="ILIUM_L">
+    <inertial>
+      <origin xyz="-0.026338 0.073907 0.027129" />
+      <mass value="1.8183" />
+      <inertia ixx="0.0019881" ixy="1.2611E-05" ixz="1.4631E-05" iyy="0.003122" iyz="8.9589E-05" izz="0.0027718" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/ILIUM_L.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="HIP_Z_L" type="revolute">
+    <origin xyz="0 0.045 -0.102" />
+    <parent link="SACRUM" />
+    <child link="ILIUM_L" />
+    <axis xyz="0 0 1" />
+    <limit lower="-0.3" upper="0.3" effort="57.143" velocity="20" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="ISCHIUM_L">
+    <inertial>
+      <origin xyz="-0.00 -0.032158 -0.00025456" />
+      <mass value="4.4889" />
+      <inertia ixx="0.0004595" ixy="1.2275E-05" ixz="-7.9911E-05" iyy="0.01258" iyz="-4.2659E-06" izz="0.0070472" />
+    </inertial>
+    <visual>
+      <origin xyz="0.0875 0 0" />
+      <geometry>
+        <mesh filename="/meshes/ISCHIUM_L.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="HIP_X_L" type="revolute">
+    <origin xyz="0 0.047 -0.0985" />
+    <parent link="ILIUM_L" />
+    <child link="ISCHIUM_L" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.261" upper="0.067" effort="80.667" velocity="20" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="THIGH_L">
+    <inertial>
+      <origin xyz="0.0023395 0.045138 -0.034529" />
+      <mass value="5.2325" />
+      <inertia ixx="0.011483" ixy="-3.7144E-05" ixz="-0.00016649" iyy="0.017243" iyz="-0.00026193" izz="0.007708" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -0.017 0" />
+      <geometry>
+        <mesh filename="/meshes/THIGH_L.dae" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 -0.017 -0.16" />
+      <geometry>
+        <cylinder length="0.32" radius="0.07"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="HIP_Y_L" type="revolute">
+    <origin xyz="0 0.03 0" />
+    <parent link="ISCHIUM_L" />
+    <child link="THIGH_L" />
+    <axis xyz="0 1 0" />
+    <limit lower="-2.1" upper="2.1" effort="297.09" velocity="35" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="SHANK_L">
+    <inertial>
+      <origin xyz="0.016263 0.029644 -0.062556" />
+      <mass value="2.5219" />
+      <inertia ixx="0.0087436" ixy="-1.0511E-05" ixz="0.00038323" iyy="0.008786" iyz="7.5537E-05" izz="0.00095312" />
+    </inertial>
+    <visual>
+      <origin xyz="0 -0.021 0 " />
+      <geometry>
+        <mesh filename="/meshes/SHANK_L.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="KNEE_L" type="revolute">
+    <origin xyz="0 0 -0.35" />
+    <parent link="THIGH_L" />
+    <child link="SHANK_L" />
+    <axis xyz="0 1 0" />
+    <limit lower="0" upper="2.625" effort="297.09" velocity="35" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="ASTRAGALUS_L">
+    <inertial>
+      <origin xyz="-1.8162E-06 -0.0025668 9.6344E-06" />
+      <mass value="0.052207" />
+      <inertia ixx="9.93E-06" ixy="4.9308E-22" ixz="-5.4215E-10" iyy="1.5974E-06" iyz="-1.3208E-20" izz="9.9327E-06" />
+    </inertial>
+  </link>
+
+  <joint name="ANKLE_X_L" type="revolute">
+    <origin xyz="0.023 0 -0.35" />
+    <parent link="SHANK_L" />
+    <child link="ASTRAGALUS_L" />
+    <axis xyz="1 0 0" />
+    <limit lower="-0.226" upper="0.226" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="FOOT_L">
+    <inertial>
+      <origin xyz="-3.3929E-05 0.0011027 -0.022344" />
+      <mass value="0.29884" />
+      <inertia ixx="0.00012877" ixy="1.25E-05" ixz="1.0824E-05" iyy="0.00068006" iyz="-4.1264E-06" izz="0.00075098" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/FOOT_L.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="ANKLE_Y_L" type="revolute">
+    <parent link="ASTRAGALUS_L" />
+    <child link="FOOT_L" />
+    <axis xyz="0 1 0" />
+    <limit lower="-1.05" upper="0" effort="22.667" velocity="18" />
+    <dynamics damping="0" friction="0" />
+  </joint>
+
+  <link name="TIPTOE_L">
+    <inertial>
+      <origin xyz="-2.6329E-05 -1.331E-08 0.00028946" />
+      <mass value="0.19191" />
+      <inertia ixx="0.00012643" ixy="3.058E-10" ixz="-3.4681E-08" iyy="0.00080649" iyz="1.1978E-11" izz="0.00092304" />
+    </inertial>
+    <visual>
+      <geometry>
+        <mesh filename="/meshes/TIPTOE.obj" />
+      </geometry>
+    </visual>
+    <collision>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <box size="0.18 0.08 0.013"/>
+      </geometry>
+    </collision>
+  </link>
+
+  <joint name="ANKLE_Z_L" type="fixed">
+    <origin xyz="0 0 -0.039" />
+    <parent link="FOOT_L" />
+    <child link="TIPTOE_L" />
+    <axis xyz="0 0 0" />
+    <limit lower="-1.57" upper="1.57" effort="10000" velocity="10000" />
+    <dynamics damping="0" friction="0" />
+  </joint>  
+
+  <link name="LIDAR">
+    <inertial>
+      <origin xyz="1.7573E-05 -0.00011111 0.041336" />
+      <mass value="0.75845" />
+      <inertia ixx="0.001" ixy="2.23E-6" ixz="1.39E-06" iyy="0.001" iyz="-2.33E-06" izz="0.00111" />
+    </inertial>
+    <visual>
+      <origin xyz="-0.05 -0.05 0"/>
+      <geometry>
+        <mesh filename="/meshes/LIDAR.dae" />
+      </geometry>
+    </visual>
+  </link>
+
+  <joint name="NECK" type="fixed">
+    <origin xyz="3.618E-05 2.0102E-05 0.0405" />
+    <parent link="TORSO" />
+    <child link="LIDAR" />
+  </joint>
+
+</robot>

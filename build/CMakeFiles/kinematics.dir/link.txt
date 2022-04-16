@@ -1,0 +1,2 @@
+/bin/ar qc libkinematics.a  CMakeFiles/kinematics.dir/src/kinematics.cpp.o
+/bin/ranlib libkinematics.a

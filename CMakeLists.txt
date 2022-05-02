@@ -55,6 +55,12 @@ target_link_libraries(adaptive PUBLIC kinematics)
 add_executable(wukong src/wukong.cpp)
 target_link_libraries(wukong PUBLIC kinematics adaptive kinematics_foot)
 
+add_executable(wukong2 src/wukong2.cpp)
+target_link_libraries(wukong2 PUBLIC kinematics adaptive kinematics_foot)
+
+add_executable(wukong_VMC src/wukong_VMC.cpp)
+target_link_libraries(wukong PUBLIC kinematics adaptive kinematics_foot)
+
 add_executable(wukong_test src/wukong_test.cpp)
 target_link_libraries(wukong_test PUBLIC kinematics adaptive)
 

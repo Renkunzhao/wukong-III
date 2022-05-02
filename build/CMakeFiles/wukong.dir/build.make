@@ -103,6 +103,9 @@ wukong: libkinematics.a
 wukong: libadaptive.a
 wukong: libkinematics_foot.a
 wukong: libkinematics.a
+wukong: libadaptive.a
+wukong: libkinematics_foot.a
+wukong: libkinematics.a
 wukong: /opt/raisim/lib/libraisim.so
 wukong: /opt/raisim/lib/libraisimPng.so
 wukong: /opt/raisim/lib/libraisimZ.so

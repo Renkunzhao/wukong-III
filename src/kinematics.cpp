@@ -262,22 +262,6 @@ void WKLegKinematics::inverseKin(Vec3 endPos, Mat3 endR, const string& LegName)
     cout << "iteration number: " << n << endl;
     cout << "error: " << err.norm() << endl;
 }
-  
-void WKLegKinematics::jointTorque(Vec6 gHipy, Vec6 gKneey, Vec6 load)
-{
-    auto rTHipy = RJac.transpose()*(load/2);
-    auto rTKneey = RJac.transpose()*((gKneey+load)/2);
-    // RTorque <<  0, 0, rTHipy[2], rTKneey[3], 0, rTHipy[5];
-    RTorque <<  0, 0, 0, rTKneey[3], 0, 0;
-
-    auto lTHipy = LJac.transpose()*(load/2);
-    auto lTKneey = LJac.transpose()*((gKneey+load)/2);
-    // LTorque <<  0, 0, lTHipy[2], lTKneey[3], 0, lTHipy[5];    
-    LTorque <<  0, 0, 0, lTKneey[3], 0, 0;   
-
-    // cout << "rTHipy: " << rTHipy.transpose() << endl;
-    // cout << "lTHipy: " << lTHipy.transpose() << endl;
-}
 
 void Fwd_Kin(Vec3& endPos, const string& LegName, Vec4 nowLegPos)
 {

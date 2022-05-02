@@ -1,8 +1,9 @@
 #include <iostream>
 #include "kinematics.h"
+#include "raisim/RaisimServer.hpp"
+#include "raisim/World.hpp"
 
-int main()
-{
+int main(int argc, char* argv[]) {
     Eigen::VectorXd pos(28);
     pos <<  0,0,0,
             0,0,0,0,
@@ -55,9 +56,6 @@ int main()
     Jacbian(RJac, "RightLeg", nowLegPos1);
     cout << "x: right jacbian\n" << RJac << endl;
 
-    //2022.3.19 01:55
-    //雅可比矩阵和正运动学解算完成，在左腿处与学长计算结果一致，在右腿处当hipy有变化时不一致
-    //计划用数值方法实现逆运动学算法，请教学长几何法思路
     Vec3 endPos1;
     Mat3 endR;
     for(int i=0;i<13;i++)
@@ -95,48 +93,55 @@ int main()
     Inv_Kin_Pos(endPos1, "LeftLeg", ang_hipz, joint_pos);
     cout << "x: left inverse kinematics " << ang_hipz << " " << joint_pos.transpose() << endl;
 
-    // Eigen::VectorXd pos(28);
-    // pos <<  0,0,0,
-    //         0,0,0,0,
-    //         0,
-    //         0,0,0,0,
-    //         0,0,0,0,
-    //         0,0,0,0,0,0,
-    //         0,0,0,0,0,0;
-    // Vec3 deltap;
-    // deltap << 0,-0.045,0.102;
-    // Mat4 T,T_inv;
+    auto binaryPath = raisim::Path::setFromArgv(argv[0]);
 
-    // WKLegKinematics wkKin(pos);
-    // WKLegKinematicsFoot wkKinL(pos, "LeftLeg");
-    // T.setIdentity();
-    // T.block(0,0,3,3) = wkKinL.wkLink[6].R;
-    // T.block(0,3,3,1) = wkKinL.wkLink[6].p;
-    // T_inv = T.inverse();
-    // T_inv.block(0,3,3,1) -= deltap;
-    // cout << "body: left kinematics " << wkKin.wkLink[12].p.transpose() << endl;
-    // cout << "foot: left kinematics " << T_inv.block(0,3,3,1).transpose() << endl;
+    //创建世界、导入wk3
+    raisim::World world;
+    world.setTimeStep(0.001);   // 仿真环境中的更新间隔
+    world.addGround();
+    world.setGravity(Eigen::VectorXd::Zero(3));
+    auto wk3 = world.addArticulatedSystem(binaryPath.getDirectory() + "../rsc/wk3-mpcturn/Wukong3_rsm.urdf");
+    wk3->setName("wk3");
 
-    // // wkKin.wkLink[7].q = 0.1;
-    // wkKin.wkLink[8].q = -0.77;
-    // wkKin.wkLink[9].q = -0.92;
-    // wkKin.wkLink[10].q = 0.36;
-    // wkKin.wkLink[11].q = 0.48;
-    // wkKin.wkLink[12].q = pi/2;
-    // wkKin.forwardKin(0);
-    // cout << "body: left kinematics " << wkKin.wkLink[12].p.transpose() << endl;
+    //初始姿态
+    int posDim = wk3->getGeneralizedCoordinateDim();
+    int dof = wk3->getDOF();
+    Eigen::VectorXd gc(posDim);
+    gc <<  0,0, 2, 1,0,0,0,
+                0., 
+                0,0,0,0, 0,0,0,0,
+                0., 0.042578, -0.492781, 0.97759, -0.03982, -0.535,
+                0., -0.042567, -0.498771, 0.97759, 0.03964, -0.535;
+    wkKin.updateLinkq(gc);
+    // wk3->setGeneralizedCoordinate(gc);
+    // wk3->setGeneralizedVelocity(Eigen::VectorXd::Zero(dof)); 
 
-    // // wkKinL.wkLink[6].q = -0.1;
-    // wkKinL.wkLink[5].q = 0.77;
-    // wkKinL.wkLink[4].q = 0.92;
-    // wkKinL.wkLink[3].q = -0.36;
-    // wkKinL.wkLink[2].q = -0.48;
-    // wkKinL.wkLink[1].q = -pi/2;
-    // wkKinL.forwardKin(0);
-    // T.setIdentity();
-    // T.block(0,0,3,3) = wkKinL.wkLink[6].R;
-    // T.block(0,3,3,1) = wkKinL.wkLink[6].p;
-    // T_inv = T.inverse();
-    // T_inv.block(0,3,3,1) -= deltap;
-    // cout << "foot: left kinematics " << T_inv.block(0,3,3,1).transpose() << endl;
+    //根据需要的质心高度计算各个关节角度
+    Eigen::AngleAxisd pitchAngle(0.5,Eigen::Vector3d::UnitY());
+    Vec3 endPr, endPl;
+    // endPr << 0.023,-0.122,-0.8;
+    // endPl << 0.023,0.122,-0.8;
+    endPr << -0.1,-0.122,-0.7;
+    endPl << 0.1,0.122,-0.7;
+    endR = pitchAngle.matrix();
+    wkKin.inverseKin(endPr, endR, "RightLeg");
+    wkKin.inverseKin(endPl, endR, "LeftLeg");
+    for(int i=0;i<12;i++){
+        gc[i+16] = wkKin.wkLink[i+1].q;
+    }
+    cout << gc << endl;
+    wk3->setGeneralizedCoordinate(gc);
+    wk3->setGeneralizedVelocity(Eigen::VectorXd::Zero(dof)); 
+
+    /// launch raisim server
+    //  运行前最好先打开unity可视化界面
+    raisim::RaisimServer server(&world);
+    server.launchServer();
+    server.focusOn(wk3);
+    std::this_thread::sleep_for(std::chrono::milliseconds(2000));
+
+    while(1){
+        this_thread::sleep_for(chrono::microseconds(900));
+        server.integrateWorldThreadSafe();
+    }
 }

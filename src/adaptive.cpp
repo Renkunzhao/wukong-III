@@ -48,15 +48,3 @@ void WKAdaptive::updatetau(){
     // tau = tau_ - Kd*s;
     tau = tau_;
 }
-
-// int main(){
-//     Mat2 a;
-//     a <<    1,1,
-//             0,2;
-//     cout << a << endl;
-//     a <<    0,0,
-//             2,9;
-//     cout << a << endl;
-//     a.diagonal() << 1,1;
-//     cout << a << endl;
-// }

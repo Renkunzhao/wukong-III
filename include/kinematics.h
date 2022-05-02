@@ -57,7 +57,6 @@ class WKLegKinematics
     void Jacbian();
     void qRangeHandler();
     void inverseKin(Vec3 endPos, Mat3 endR, const string& LegName);
-    void jointTorque(Vec6 gHipy, Vec6 gKneey, Vec6 load);
 };
 
 class WKLegKinematicsFoot

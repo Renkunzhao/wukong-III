@@ -124,6 +124,19 @@ matplotlib/fast:
 .PHONY : matplotlib/fast
 
 #=============================================================================
+# Target rules for targets named wukong_test
+
+# Build rule for target.
+wukong_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wukong_test
+.PHONY : wukong_test
+
+# fast build rule for target.
+wukong_test/fast:
+	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/build
+.PHONY : wukong_test/fast
+
+#=============================================================================
 # Target rules for targets named root_tutorials
 
 # Build rule for target.
@@ -137,17 +150,30 @@ root_tutorials/fast:
 .PHONY : root_tutorials/fast
 
 #=============================================================================
-# Target rules for targets named wukong_test
+# Target rules for targets named wukong_VMC
 
 # Build rule for target.
-wukong_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 wukong_test
-.PHONY : wukong_test
+wukong_VMC: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wukong_VMC
+.PHONY : wukong_VMC
 
 # fast build rule for target.
-wukong_test/fast:
-	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/build
-.PHONY : wukong_test/fast
+wukong_VMC/fast:
+	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/build
+.PHONY : wukong_VMC/fast
+
+#=============================================================================
+# Target rules for targets named wukong2
+
+# Build rule for target.
+wukong2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wukong2
+.PHONY : wukong2
+
+# fast build rule for target.
+wukong2/fast:
+	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/build
+.PHONY : wukong2/fast
 
 #=============================================================================
 # Target rules for targets named adaptive
@@ -403,6 +429,60 @@ src/wukong.cpp.s:
 	$(MAKE) -f CMakeFiles/wukong.dir/build.make CMakeFiles/wukong.dir/src/wukong.cpp.s
 .PHONY : src/wukong.cpp.s
 
+src/wukong2.o: src/wukong2.cpp.o
+
+.PHONY : src/wukong2.o
+
+# target to build an object file
+src/wukong2.cpp.o:
+	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/src/wukong2.cpp.o
+.PHONY : src/wukong2.cpp.o
+
+src/wukong2.i: src/wukong2.cpp.i
+
+.PHONY : src/wukong2.i
+
+# target to preprocess a source file
+src/wukong2.cpp.i:
+	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/src/wukong2.cpp.i
+.PHONY : src/wukong2.cpp.i
+
+src/wukong2.s: src/wukong2.cpp.s
+
+.PHONY : src/wukong2.s
+
+# target to generate assembly for a file
+src/wukong2.cpp.s:
+	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/src/wukong2.cpp.s
+.PHONY : src/wukong2.cpp.s
+
+src/wukong_VMC.o: src/wukong_VMC.cpp.o
+
+.PHONY : src/wukong_VMC.o
+
+# target to build an object file
+src/wukong_VMC.cpp.o:
+	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/src/wukong_VMC.cpp.o
+.PHONY : src/wukong_VMC.cpp.o
+
+src/wukong_VMC.i: src/wukong_VMC.cpp.i
+
+.PHONY : src/wukong_VMC.i
+
+# target to preprocess a source file
+src/wukong_VMC.cpp.i:
+	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/src/wukong_VMC.cpp.i
+.PHONY : src/wukong_VMC.cpp.i
+
+src/wukong_VMC.s: src/wukong_VMC.cpp.s
+
+.PHONY : src/wukong_VMC.s
+
+# target to generate assembly for a file
+src/wukong_VMC.cpp.s:
+	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/src/wukong_VMC.cpp.s
+.PHONY : src/wukong_VMC.cpp.s
+
 src/wukong_test.o: src/wukong_test.cpp.o
 
 .PHONY : src/wukong_test.o
@@ -439,8 +519,10 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... matplotlib"
-	@echo "... root_tutorials"
 	@echo "... wukong_test"
+	@echo "... root_tutorials"
+	@echo "... wukong_VMC"
+	@echo "... wukong2"
 	@echo "... adaptive"
 	@echo "... wukong"
 	@echo "... kinematics_test"
@@ -467,6 +549,12 @@ help:
 	@echo "... src/wukong.o"
 	@echo "... src/wukong.i"
 	@echo "... src/wukong.s"
+	@echo "... src/wukong2.o"
+	@echo "... src/wukong2.i"
+	@echo "... src/wukong2.s"
+	@echo "... src/wukong_VMC.o"
+	@echo "... src/wukong_VMC.i"
+	@echo "... src/wukong_VMC.s"
 	@echo "... src/wukong_test.o"
 	@echo "... src/wukong_test.i"
 	@echo "... src/wukong_test.s"

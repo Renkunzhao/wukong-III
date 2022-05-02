@@ -62,13 +62,9 @@ int main(int argc, char* argv[]) {
   cout << "upperMass: " << upperMass << endl;
   auto g = world.getGravity();
   cout << "g: " << g.e().transpose() << endl;
-  Vec6 gHipy, gKneey;
-  // endForceHipx << (upperMass+mass[10]+mass[16])*g.e(),0,0,0;
-  gHipy << (upperMass+mass[10]+mass[11]+mass[16]+mass[17])*g.e(),0,0,0;
-  gKneey << (totalMass-mass[15]-mass[21])*g.e(),0,0,0;
-  // endForce << upperMass*g.e(),0,0,0;
-  cout << "gHipy: " << gHipy.transpose() << endl;
-  cout << "gKneey: " << gKneey.transpose() << endl;
+  Vec6 gTorso;
+  gTorso << (totalMass-mass[15]-mass[21])*g.e(),0,0,0;
+  cout << "gTorso: " << gTorso.transpose() << endl;
 
   auto massMatrix = wk3->getMassMatrix().e();
   cout << "MassMatrix:\n" << massMatrix << endl;
@@ -103,9 +99,6 @@ int main(int argc, char* argv[]) {
   //利用雅可比矩阵,根据机器人重量及负载计算关节力矩
   Vec6 load;
   load.setZero();
-  wkKin.jointTorque(gHipy, gKneey, load);
-  cout << "rTorque: " << wkKin.RTorque.transpose() << endl;
-  cout << "lTorque: " << wkKin.LTorque.transpose() << endl;
 
   //控制参数
   pgain <<  0,0,0,0,0,0, 450,  80, 80, 80, 80, 80, 80, 80, 80, 
@@ -221,7 +214,8 @@ int main(int argc, char* argv[]) {
       cout << "raisim lJac:\n" << lJac << endl;
 
       //根据雅可比矩阵计算关节力矩
-      wkKin.jointTorque(gHipy, gKneey, load);
+      wkKin.RTorque = wkKin.RJac.transpose()*((gTorso+load)/2);
+      wkKin.LTorque = wkKin.LJac.transpose()*((gTorso+load)/2);
       // feedForwardF << Eigen::VectorXd::Zero(dof-12), wkKin.RTorque, wkKin.LTorque;
       // wk3->setGeneralizedForce(feedForwardF);
       gr1_2->AddPoint(time, wkKin.RTorque(2));
@@ -231,8 +225,8 @@ int main(int argc, char* argv[]) {
 
 
       Vec6 rTorque,lTorque;
-      rTorque = rJac.transpose() * ((gKneey+load)/2);
-      lTorque = lJac.transpose() * ((gKneey+load)/2);
+      rTorque = rJac.transpose() * ((gTorso+load)/2);
+      lTorque = lJac.transpose() * ((gTorso+load)/2);
       gr1_3->AddPoint(time, rTorque(2));
       gr2_3->AddPoint(time, rTorque(3));
       gr3_3->AddPoint(time, lTorque(2));

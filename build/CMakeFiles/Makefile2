@@ -54,8 +54,10 @@ CMAKE_BINARY_DIR = /home/rkz/桌面/simulation/build
 
 # The main recursive "all" target.
 all: CMakeFiles/matplotlib.dir/all
-all: CMakeFiles/root_tutorials.dir/all
 all: CMakeFiles/wukong_test.dir/all
+all: CMakeFiles/root_tutorials.dir/all
+all: CMakeFiles/wukong_VMC.dir/all
+all: CMakeFiles/wukong2.dir/all
 all: CMakeFiles/adaptive.dir/all
 all: CMakeFiles/wukong.dir/all
 all: CMakeFiles/kinematics_test.dir/all
@@ -71,8 +73,10 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/matplotlib.dir/clean
-clean: CMakeFiles/root_tutorials.dir/clean
 clean: CMakeFiles/wukong_test.dir/clean
+clean: CMakeFiles/root_tutorials.dir/clean
+clean: CMakeFiles/wukong_VMC.dir/clean
+clean: CMakeFiles/wukong2.dir/clean
 clean: CMakeFiles/adaptive.dir/clean
 clean: CMakeFiles/wukong.dir/clean
 clean: CMakeFiles/kinematics_test.dir/clean
@@ -109,6 +113,34 @@ CMakeFiles/matplotlib.dir/clean:
 .PHONY : CMakeFiles/matplotlib.dir/clean
 
 #=============================================================================
+# Target rules for target CMakeFiles/wukong_test.dir
+
+# All Build rule for target.
+CMakeFiles/wukong_test.dir/all: CMakeFiles/adaptive.dir/all
+CMakeFiles/wukong_test.dir/all: CMakeFiles/kinematics.dir/all
+	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/depend
+	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rkz/桌面/simulation/build/CMakeFiles --progress-num=19,20 "Built target wukong_test"
+.PHONY : CMakeFiles/wukong_test.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/wukong_test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rkz/桌面/simulation/build/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/wukong_test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rkz/桌面/simulation/build/CMakeFiles 0
+.PHONY : CMakeFiles/wukong_test.dir/rule
+
+# Convenience name for target.
+wukong_test: CMakeFiles/wukong_test.dir/rule
+
+.PHONY : wukong_test
+
+# clean rule for target.
+CMakeFiles/wukong_test.dir/clean:
+	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/clean
+.PHONY : CMakeFiles/wukong_test.dir/clean
+
+#=============================================================================
 # Target rules for target CMakeFiles/root_tutorials.dir
 
 # All Build rule for target.
@@ -136,32 +168,60 @@ CMakeFiles/root_tutorials.dir/clean:
 .PHONY : CMakeFiles/root_tutorials.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/wukong_test.dir
+# Target rules for target CMakeFiles/wukong_VMC.dir
 
 # All Build rule for target.
-CMakeFiles/wukong_test.dir/all: CMakeFiles/adaptive.dir/all
-CMakeFiles/wukong_test.dir/all: CMakeFiles/kinematics.dir/all
-	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/depend
-	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rkz/桌面/simulation/build/CMakeFiles --progress-num=15,16 "Built target wukong_test"
-.PHONY : CMakeFiles/wukong_test.dir/all
+CMakeFiles/wukong_VMC.dir/all:
+	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/depend
+	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rkz/桌面/simulation/build/CMakeFiles --progress-num=17,18 "Built target wukong_VMC"
+.PHONY : CMakeFiles/wukong_VMC.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/wukong_test.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/rkz/桌面/simulation/build/CMakeFiles 6
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/wukong_test.dir/all
+CMakeFiles/wukong_VMC.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rkz/桌面/simulation/build/CMakeFiles 2
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/wukong_VMC.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/rkz/桌面/simulation/build/CMakeFiles 0
-.PHONY : CMakeFiles/wukong_test.dir/rule
+.PHONY : CMakeFiles/wukong_VMC.dir/rule
 
 # Convenience name for target.
-wukong_test: CMakeFiles/wukong_test.dir/rule
+wukong_VMC: CMakeFiles/wukong_VMC.dir/rule
 
-.PHONY : wukong_test
+.PHONY : wukong_VMC
 
 # clean rule for target.
-CMakeFiles/wukong_test.dir/clean:
-	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/clean
-.PHONY : CMakeFiles/wukong_test.dir/clean
+CMakeFiles/wukong_VMC.dir/clean:
+	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/clean
+.PHONY : CMakeFiles/wukong_VMC.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/wukong2.dir
+
+# All Build rule for target.
+CMakeFiles/wukong2.dir/all: CMakeFiles/adaptive.dir/all
+CMakeFiles/wukong2.dir/all: CMakeFiles/kinematics_foot.dir/all
+CMakeFiles/wukong2.dir/all: CMakeFiles/kinematics.dir/all
+	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/depend
+	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/rkz/桌面/simulation/build/CMakeFiles --progress-num=15,16 "Built target wukong2"
+.PHONY : CMakeFiles/wukong2.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/wukong2.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rkz/桌面/simulation/build/CMakeFiles 8
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/wukong2.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/rkz/桌面/simulation/build/CMakeFiles 0
+.PHONY : CMakeFiles/wukong2.dir/rule
+
+# Convenience name for target.
+wukong2: CMakeFiles/wukong2.dir/rule
+
+.PHONY : wukong2
+
+# clean rule for target.
+CMakeFiles/wukong2.dir/clean:
+	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/clean
+.PHONY : CMakeFiles/wukong2.dir/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/adaptive.dir

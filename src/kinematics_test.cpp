@@ -1,7 +1,29 @@
+#include <fstream>
 #include <iostream>
 #include "kinematics.h"
 #include "raisim/RaisimServer.hpp"
 #include "raisim/World.hpp"
+
+void quaToRpy(raisim::Mat<3, 3> orientation, Vec3& RPY)
+{
+    Eigen::Quaterniond q(orientation.e());
+    // roll (x-axis rotation)
+    double sinr_cosp = +2.0 * (q.w() * q.x() + q.y() * q.z());
+    double cosr_cosp = +1.0 - 2.0 * (q.x() * q.x() + q.y() * q.y());
+    RPY[0] = atan2(sinr_cosp, cosr_cosp);
+
+    // pitch (y-axis rotation)
+    double sinp = +2.0 * (q.w() * q.y() - q.z() * q.x());
+    if (fabs(sinp) >= 1)
+    RPY[1] = copysign(M_PI / 2, sinp); // use 90 degrees if out of range
+    else
+    RPY[1] = asin(sinp);
+
+    // yaw (z-axis rotation)
+    double siny_cosp = +2.0 * (q.w() * q.z() + q.x() * q.y());
+    double cosy_cosp = +1.0 - 2.0 * (q.y() * q.y() + q.z() * q.z());
+    RPY[2] = atan2(siny_cosp, cosy_cosp);
+}
 
 int main(int argc, char* argv[]) {
     Eigen::VectorXd pos(28);
@@ -107,7 +129,7 @@ int main(int argc, char* argv[]) {
     int posDim = wk3->getGeneralizedCoordinateDim();
     int dof = wk3->getDOF();
     Eigen::VectorXd gc(posDim);
-    gc <<  0,0, 2, 1,0,0,0,
+    gc <<  0,0, 2, 0.995,0,0.1,0,
                 0., 
                 0,0,0,0, 0,0,0,0,
                 0., 0.042578, -0.492781, 0.97759, -0.03982, -0.535,
@@ -117,21 +139,53 @@ int main(int argc, char* argv[]) {
     // wk3->setGeneralizedVelocity(Eigen::VectorXd::Zero(dof)); 
 
     //根据需要的质心高度计算各个关节角度
-    Eigen::AngleAxisd pitchAngle(0.5,Eigen::Vector3d::UnitY());
+    Eigen::AngleAxisd pitchAngleCoM(0.2,Eigen::Vector3d::UnitY());
+    Eigen::Quaterniond quaternion(pitchAngleCoM);
+    Eigen::AngleAxisd pitchAngle(-0.2,Eigen::Vector3d::UnitY());
     Vec3 endPr, endPl;
     // endPr << 0.023,-0.122,-0.8;
     // endPl << 0.023,0.122,-0.8;
-    endPr << -0.1,-0.122,-0.7;
-    endPl << 0.1,0.122,-0.7;
+    endPr << 0.,-0.122,-0.7;
+    endPl << 0.,0.122,-0.7;
+    endPr = pitchAngle.matrix()*endPr;
+    endPl = pitchAngle.matrix()*endPl;
     endR = pitchAngle.matrix();
     wkKin.inverseKin(endPr, endR, "RightLeg");
     wkKin.inverseKin(endPl, endR, "LeftLeg");
     for(int i=0;i<12;i++){
         gc[i+16] = wkKin.wkLink[i+1].q;
     }
-    cout << gc << endl;
+    gc[3] = quaternion.coeffs()[3];
+    gc[4] = quaternion.coeffs()[0];
+    gc[5] = quaternion.coeffs()[1];
+    gc[6] = quaternion.coeffs()[2];
+    cout << "gc: " << gc.transpose() << endl;
     wk3->setGeneralizedCoordinate(gc);
     wk3->setGeneralizedVelocity(Eigen::VectorXd::Zero(dof)); 
+
+    raisim::Mat<3, 3> bodyRotation;
+    Vec3 theta;
+    wk3->getBodyOrientation(0, bodyRotation);
+    quaToRpy(bodyRotation, theta);
+    cout << "theta: " << theta.transpose() << endl;
+
+    cout << "M:\n" << wk3->getMassMatrix() << endl;
+    cout << "h:\n" << wk3->getNonlinearities(world.getGravity()) << endl;
+
+	// //定义文件输出流 
+	// ofstream oFile; 
+ 
+	// //打开要输出的文件 
+	// oFile.open("../M0.csv", ios::out | ios::trunc);    // 这样就很容易的输出一个需要的excel 文件
+	// for(int i=0;i<dof;i++){
+    //     for(int j=0;j<dof;j++){
+    //         oFile << wk3->getMassMatrix()(i,j) << "," ;
+    //         cout << wk3->getMassMatrix()(i,j) << endl ;
+    //     }
+    //     oFile << endl;
+    // }
+ 
+	// oFile.close();
 
     /// launch raisim server
     //  运行前最好先打开unity可视化界面

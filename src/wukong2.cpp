@@ -64,7 +64,7 @@ int main(int argc, char* argv[]) {
   cout << "gTorso: " << gTorso.transpose() << endl;
 
   //初始化WKLegKinematics类，根据需要的质心高度计算各个关节角度
-  Eigen::VectorXd posTarget(posDim), velTarget(dof), feedForwardF(dof);
+  Eigen::VectorXd posInit(posDim), posTarget(posDim), velTarget(dof), feedForwardF(dof);
   posTarget <<  0,0, 0.75, 1,0,0,0,
                 0., 
                 0,0,0,0, 0,0,0,0,
@@ -75,14 +75,15 @@ int main(int argc, char* argv[]) {
   Mat3 endR;
   // endPr << 0.023,-0.122,-0.8;
   // endPl << 0.023,0.122,-0.8;
-  endPr << -0.1,-0.122,-0.7;
-  endPl << 0.2,0.122,-0.7;
+  endPr << -0,-0.122,-0.7;
+  endPl << 0,0.122,-0.7;
   endR.setIdentity();
   wkKin.inverseKin(endPr, endR, "RightLeg");
   wkKin.inverseKin(endPl, endR, "LeftLeg");
   for(int i=0;i<12;i++){
     posTarget[i+16] = wkKin.wkLink[i+1].q;
   }
+  posInit = posTarget;
   cout << "posTarget: " << posTarget.tail(12).transpose() << endl;
   velTarget.setZero();
   wk3->setGeneralizedCoordinate(posTarget);
@@ -98,11 +99,11 @@ int main(int argc, char* argv[]) {
             1.5, 0.5, 25, 25, 0.3, 25,
             1.5, 0.5, 25, 25, 0.3, 25;
   // pgain <<  0,0,0,0,0,0, 450,  80, 80, 80, 80, 80, 80, 80, 80, 
-  //           1000, 1000, 1000, 1000, 1000, 1000,
-  //           1000, 1000, 1000, 1000, 1000, 1000;
+  //           350, 500, 1200, 500, 100, 300,
+  //           350, 500, 1200, 500, 100, 300;
   // dgain <<  0,0,0,0,0,0, 1.5,  0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 
-  //           25, 25, 25, 25, 25, 25,
-  //           25, 25, 25, 25, 25, 25;
+  //           1.5, 0.5, 45, 25, 0.3, 3,
+  //           1.5, 0.5, 45, 25, 0.3, 3;
   wk3->setPdGains(pgain, dgain);
   wk3->setPdTarget(posTarget, velTarget);
 
@@ -154,13 +155,41 @@ int main(int argc, char* argv[]) {
   //快速站稳
   raisim::Mat<3, 3> bodyRotation;
   Vec3 thetad,theta;
-  thetad << 0,0.2,0;
-  for (int i=0; i<9000; i++) {
+  thetad << 0,0,0;
+  for (int i=0; i<2000; i++) {
     auto pos = wk3->getGeneralizedCoordinate().e();
     auto vel = wk3->getGeneralizedVelocity().e();
     wk3->getBodyOrientation(0, bodyRotation);
     quaToRpy(bodyRotation, theta);
     wkKin.updateLinkq(pos);
+    //根据雅可比矩阵计算关节力矩
+    fTorso << 0,0,2500*(0.8-pos(2)) + 20*(0-vel(2)),
+              0*(thetad[0]-theta[0]) + 0*(0-vel(3)),
+              2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),
+              0;
+    wkKin.RTorque = wkKin.RJac.transpose()*((gTorso-fTorso+load)/2);
+    wkKin.LTorque = wkKin.LJac.transpose()*((gTorso-fTorso+load)/2);
+    feedForwardF << Eigen::VectorXd::Zero(dof-12), wkKin.RTorque, wkKin.LTorque;
+    wk3->setGeneralizedForce(feedForwardF);
+    this_thread::sleep_for(chrono::microseconds(900));
+    server.integrateWorldThreadSafe();
+  }
+
+
+  //增加负载
+  for (int i=0; i<21000; i++) {
+    auto pos = wk3->getGeneralizedCoordinate().e();
+    auto vel = wk3->getGeneralizedVelocity().e();
+    wk3->getBodyOrientation(0, bodyRotation);
+    quaToRpy(bodyRotation, theta);
+    wkKin.updateLinkq(pos);
+
+    //抑制晃动
+    posTarget[18] = posInit[18] - 10*(0-theta[1]);
+    posTarget[24] = posInit[24] - 10*(0-theta[1]);//加个增益使pitch更稳
+    posTarget[21] = posInit[21] - 10*(0-theta[1]);
+    posTarget[27] = posInit[27] - 10*(0-theta[1]);//加个增益使pitch更稳
+    wk3->setPdTarget(posTarget, velTarget);
 
     //VMC
     fTorso << 0,0,0,0,2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),0;
@@ -170,24 +199,29 @@ int main(int argc, char* argv[]) {
     // wk3->setGeneralizedForce(feedForwardF);
 
     //根据雅可比矩阵计算关节力矩
-    fTorso << 0,0,100*(0.8-pos(2)) + 10*(0-vel(2)),
-              1500*(thetad[0]-theta[0]) + 20*(0-vel(3)),
-              2500*(thetad[1]-theta[1]) + 100*(0-vel(4)),
+    fTorso << 0,0,0*(0.8-pos(2)) + 0*(0-vel(2)),
+              0*(thetad[0]-theta[0]) + 0*(0-vel(3)),
+              2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),
               0;
-    wkKin.RTorque = wkKin.RJac.transpose()*((gTorso-fTorso+load)/2);
-    wkKin.LTorque = wkKin.LJac.transpose()*((gTorso-fTorso+load)/2);
-    feedForwardF << Eigen::VectorXd::Zero(dof-12), 1.05*wkKin.RTorque, 1.05*wkKin.LTorque;
-    wk3->setGeneralizedForce(feedForwardF);
+    wkKin.RTorque = wkKin.RJac.transpose()*((-fTorso+load)/2);
+    wkKin.LTorque = wkKin.LJac.transpose()*((-fTorso+load)/2);
+    feedForwardF << Eigen::VectorXd::Zero(dof-12), wkKin.RTorque, wkKin.LTorque;
+    // wk3->setGeneralizedForce(feedForwardF);
 
     //自适应控制算法
     rAdapt.updateq(pos.block(18,0,2,1), vel.block(17,0,2,1), posTarget.block(18,0,2,1), velTarget.block(17,0,2,1));
     lAdapt.updateq(pos.block(24,0,2,1), vel.block(23,0,2,1), posTarget.block(24,0,2,1), velTarget.block(23,0,2,1));
-    fTorso << 0,0,0,0,500*(thetad[0]-theta[1]) + 20*(0-vel(4)),0;
+    if(i<3000){
+      fTorso << 0,0,0,0,1250*(thetad[0]-theta[1]) + 20*(0-vel(4)),0; 
+    }
+    else{
+      fTorso << 0,0,0,0,500*(thetad[0]-theta[1]) + 20*(0-vel(4)),0; 
+    }
     auto rAdaptTau = wkKin.RJac.transpose()*(-fTorso/2);
     auto lAdaptTau = wkKin.LJac.transpose()*(-fTorso/2);
-    feedForwardF << Eigen::VectorXd::Zero(dof-12),  0,0,rAdapt.tau[0],rAdapt.tau[1],0,rAdaptTau[5], 
-                                                    0,0,lAdapt.tau[0],lAdapt.tau[1],0,rAdaptTau[5];
-    // wk3->setGeneralizedForce(feedForwardF);
+    feedForwardF << Eigen::VectorXd::Zero(dof-12),  0,0,rAdapt.tau[0],rAdapt.tau[1],0,0, 
+                                                    0,0,lAdapt.tau[0],lAdapt.tau[1],0,0;
+    wk3->setGeneralizedForce(feedForwardF);
 
     if(i%250==0){
       auto time = world.getWorldTime();
@@ -199,8 +233,10 @@ int main(int argc, char* argv[]) {
       // cout << "posTarget: " << posTarget.tail(12).transpose() << endl;
       cout << "rTorque: " << force.block(15,0,6,1).transpose() << endl;
       cout << "lTorque: " << force.block(21,0,6,1).transpose() << endl;
-      // cout << "rAdapt.tau: " << rAdapt.tau.transpose() << endl;
-      // cout << "lAdapt.tau: " << lAdapt.tau.transpose() << endl;
+      // cout << "rAdaptTau: " << rAdaptTau.transpose() << endl;
+      // cout << "lAdaptTau: " << lAdaptTau.transpose() << endl;
+      cout << "rAdapt.tau: " << rAdapt.tau.transpose() << endl;
+      cout << "lAdapt.tau: " << lAdapt.tau.transpose() << endl;
       // cout << "Fd: " << Fd << endl;
       // cout << "Tdx: " << Tdx << endl;
       // cout << "Tdy: " << Tdy << endl;
@@ -209,6 +245,10 @@ int main(int argc, char* argv[]) {
       // cout << "wkKin.LTorque: " << wkKin.LTorque.transpose() << endl;
       // cout << "r: right jacbian\n" << wkKin.RJac << endl;
       // cout << "r: right jacbian\n" << wkKin.LJac << endl;
+      cout << "rAdapt.Y:\n" << rAdapt.Y << endl;
+      cout << "lAdapt.Y:\n" << lAdapt.Y << endl;
+      cout << "rAdapt.a: " << rAdapt.a_.transpose() << endl;
+      cout << "lAdapt.a: " << lAdapt.a_.transpose() << endl;
 
       grCoMz->AddPoint(time, pos(2));
       grCoMtheta->AddPoint(time, theta(1));
@@ -232,14 +272,14 @@ int main(int argc, char* argv[]) {
       gr6_3->AddPoint(time, lAdaptTau[5]);
     }
 
-    // if(i>3000&&i<6000){
-    //   load << 0,0,-300,0,0,0;
-    //   wk3->setExternalForce(0, load);
-    // }
-    // else{ 
-    //   load << 0,0,0,0,0,0;
-    //   wk3->clearExternalForcesAndTorques();
-    // }
+    if(i>3000&&i<9000){
+      load << 0,0,-50,0,0,0;
+      wk3->setExternalForce(0, load);
+    }
+    else{ 
+      load << 0,0,0,0,0,0;
+      wk3->clearExternalForcesAndTorques();
+    }
 
     // if(i>3000&&i<6000){
     //   load << 50,0,0,0,0,0;
@@ -250,15 +290,44 @@ int main(int argc, char* argv[]) {
     //   wk3->clearExternalForcesAndTorques();
     // }
 
-    if(i>3000&&i<6000){
-      load << 0,0,-50,0,0,0;
-      wk3->setExternalForce(13, load);
-      wk3->setExternalForce(19, load);
-    }
-    else{ 
-      load << 0,0,0,0,0,0;
-      wk3->clearExternalForcesAndTorques();
-    }
+    // if(i>3000&&i<6000){
+    //   load << 0,0,-50,0,0,0;
+    //   wk3->setExternalForce(13, load);
+    //   wk3->setExternalForce(19, load);
+    // }
+    // else{ 
+    //   load << 0,0,0,0,0,0;
+    //   wk3->clearExternalForcesAndTorques();
+    // }
+
+    // if(i>3000&&i<6000){
+    //   load << 0,0,-100,0,0,0;
+    //   wk3->setExternalForce(0, load);
+    // }
+    // else if(i>6000&&i<9000){
+    //   load << 0,0,-100,0,0,0;
+    //   wk3->setExternalForce(0, load);
+    // }
+    // else if(i>9000&&i<12000){
+    //   load << 0,0,-200,0,0,0;
+    //   wk3->setExternalForce(0, load);
+    // }
+    // else if(i>12000&&i<15000){
+    //   load << 0,0,-200,0,0,0;
+    //   wk3->setExternalForce(0, load);
+    // }
+    // else if(i>15000&&i<18000){
+    //   load << 0,0,-300,0,0,0;
+    //   wk3->setExternalForce(0, load);
+    // }
+    // else if(i>18000&&i<21000){
+    //   load << 0,0,-300,0,0,0;
+    //   wk3->setExternalForce(0, load);
+    // }
+    // else{
+    //   load << 0,0,0,0,0,0;
+    //   wk3->clearExternalForcesAndTorques();
+    // }
 
     // if(i>3000&&i<6000){
     //   load << 0,0,-50,0,0,0;

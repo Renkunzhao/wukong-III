@@ -111,95 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named matplotlib
+# Target rules for targets named kinematics
 
 # Build rule for target.
-matplotlib: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 matplotlib
-.PHONY : matplotlib
+kinematics: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 kinematics
+.PHONY : kinematics
 
 # fast build rule for target.
-matplotlib/fast:
-	$(MAKE) -f CMakeFiles/matplotlib.dir/build.make CMakeFiles/matplotlib.dir/build
-.PHONY : matplotlib/fast
-
-#=============================================================================
-# Target rules for targets named wukong_test
-
-# Build rule for target.
-wukong_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 wukong_test
-.PHONY : wukong_test
-
-# fast build rule for target.
-wukong_test/fast:
-	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/build
-.PHONY : wukong_test/fast
-
-#=============================================================================
-# Target rules for targets named root_tutorials
-
-# Build rule for target.
-root_tutorials: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 root_tutorials
-.PHONY : root_tutorials
-
-# fast build rule for target.
-root_tutorials/fast:
-	$(MAKE) -f CMakeFiles/root_tutorials.dir/build.make CMakeFiles/root_tutorials.dir/build
-.PHONY : root_tutorials/fast
-
-#=============================================================================
-# Target rules for targets named wukong_VMC
-
-# Build rule for target.
-wukong_VMC: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 wukong_VMC
-.PHONY : wukong_VMC
-
-# fast build rule for target.
-wukong_VMC/fast:
-	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/build
-.PHONY : wukong_VMC/fast
-
-#=============================================================================
-# Target rules for targets named wukong2
-
-# Build rule for target.
-wukong2: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 wukong2
-.PHONY : wukong2
-
-# fast build rule for target.
-wukong2/fast:
-	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/build
-.PHONY : wukong2/fast
-
-#=============================================================================
-# Target rules for targets named adaptive
-
-# Build rule for target.
-adaptive: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 adaptive
-.PHONY : adaptive
-
-# fast build rule for target.
-adaptive/fast:
-	$(MAKE) -f CMakeFiles/adaptive.dir/build.make CMakeFiles/adaptive.dir/build
-.PHONY : adaptive/fast
-
-#=============================================================================
-# Target rules for targets named wukong
-
-# Build rule for target.
-wukong: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 wukong
-.PHONY : wukong
-
-# fast build rule for target.
-wukong/fast:
-	$(MAKE) -f CMakeFiles/wukong.dir/build.make CMakeFiles/wukong.dir/build
-.PHONY : wukong/fast
+kinematics/fast:
+	$(MAKE) -f CMakeFiles/kinematics.dir/build.make CMakeFiles/kinematics.dir/build
+.PHONY : kinematics/fast
 
 #=============================================================================
 # Target rules for targets named kinematics_test
@@ -215,6 +137,58 @@ kinematics_test/fast:
 .PHONY : kinematics_test/fast
 
 #=============================================================================
+# Target rules for targets named wukong
+
+# Build rule for target.
+wukong: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wukong
+.PHONY : wukong
+
+# fast build rule for target.
+wukong/fast:
+	$(MAKE) -f CMakeFiles/wukong.dir/build.make CMakeFiles/wukong.dir/build
+.PHONY : wukong/fast
+
+#=============================================================================
+# Target rules for targets named adaptive
+
+# Build rule for target.
+adaptive: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 adaptive
+.PHONY : adaptive
+
+# fast build rule for target.
+adaptive/fast:
+	$(MAKE) -f CMakeFiles/adaptive.dir/build.make CMakeFiles/adaptive.dir/build
+.PHONY : adaptive/fast
+
+#=============================================================================
+# Target rules for targets named adaptive3
+
+# Build rule for target.
+adaptive3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 adaptive3
+.PHONY : adaptive3
+
+# fast build rule for target.
+adaptive3/fast:
+	$(MAKE) -f CMakeFiles/adaptive3.dir/build.make CMakeFiles/adaptive3.dir/build
+.PHONY : adaptive3/fast
+
+#=============================================================================
+# Target rules for targets named wukong2
+
+# Build rule for target.
+wukong2: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wukong2
+.PHONY : wukong2
+
+# fast build rule for target.
+wukong2/fast:
+	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/build
+.PHONY : wukong2/fast
+
+#=============================================================================
 # Target rules for targets named kinematics_foot
 
 # Build rule for target.
@@ -228,17 +202,82 @@ kinematics_foot/fast:
 .PHONY : kinematics_foot/fast
 
 #=============================================================================
-# Target rules for targets named kinematics
+# Target rules for targets named wukong3
 
 # Build rule for target.
-kinematics: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 kinematics
-.PHONY : kinematics
+wukong3: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wukong3
+.PHONY : wukong3
 
 # fast build rule for target.
-kinematics/fast:
-	$(MAKE) -f CMakeFiles/kinematics.dir/build.make CMakeFiles/kinematics.dir/build
-.PHONY : kinematics/fast
+wukong3/fast:
+	$(MAKE) -f CMakeFiles/wukong3.dir/build.make CMakeFiles/wukong3.dir/build
+.PHONY : wukong3/fast
+
+#=============================================================================
+# Target rules for targets named wukong_VMC
+
+# Build rule for target.
+wukong_VMC: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wukong_VMC
+.PHONY : wukong_VMC
+
+# fast build rule for target.
+wukong_VMC/fast:
+	$(MAKE) -f CMakeFiles/wukong_VMC.dir/build.make CMakeFiles/wukong_VMC.dir/build
+.PHONY : wukong_VMC/fast
+
+#=============================================================================
+# Target rules for targets named root_tutorials
+
+# Build rule for target.
+root_tutorials: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 root_tutorials
+.PHONY : root_tutorials
+
+# fast build rule for target.
+root_tutorials/fast:
+	$(MAKE) -f CMakeFiles/root_tutorials.dir/build.make CMakeFiles/root_tutorials.dir/build
+.PHONY : root_tutorials/fast
+
+#=============================================================================
+# Target rules for targets named parameter_identify
+
+# Build rule for target.
+parameter_identify: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 parameter_identify
+.PHONY : parameter_identify
+
+# fast build rule for target.
+parameter_identify/fast:
+	$(MAKE) -f CMakeFiles/parameter_identify.dir/build.make CMakeFiles/parameter_identify.dir/build
+.PHONY : parameter_identify/fast
+
+#=============================================================================
+# Target rules for targets named wukong_test
+
+# Build rule for target.
+wukong_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 wukong_test
+.PHONY : wukong_test
+
+# fast build rule for target.
+wukong_test/fast:
+	$(MAKE) -f CMakeFiles/wukong_test.dir/build.make CMakeFiles/wukong_test.dir/build
+.PHONY : wukong_test/fast
+
+#=============================================================================
+# Target rules for targets named matplotlib
+
+# Build rule for target.
+matplotlib: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 matplotlib
+.PHONY : matplotlib
+
+# fast build rule for target.
+matplotlib/fast:
+	$(MAKE) -f CMakeFiles/matplotlib.dir/build.make CMakeFiles/matplotlib.dir/build
+.PHONY : matplotlib/fast
 
 src/adaptive.o: src/adaptive.cpp.o
 
@@ -266,6 +305,33 @@ src/adaptive.s: src/adaptive.cpp.s
 src/adaptive.cpp.s:
 	$(MAKE) -f CMakeFiles/adaptive.dir/build.make CMakeFiles/adaptive.dir/src/adaptive.cpp.s
 .PHONY : src/adaptive.cpp.s
+
+src/adaptive3.o: src/adaptive3.cpp.o
+
+.PHONY : src/adaptive3.o
+
+# target to build an object file
+src/adaptive3.cpp.o:
+	$(MAKE) -f CMakeFiles/adaptive3.dir/build.make CMakeFiles/adaptive3.dir/src/adaptive3.cpp.o
+.PHONY : src/adaptive3.cpp.o
+
+src/adaptive3.i: src/adaptive3.cpp.i
+
+.PHONY : src/adaptive3.i
+
+# target to preprocess a source file
+src/adaptive3.cpp.i:
+	$(MAKE) -f CMakeFiles/adaptive3.dir/build.make CMakeFiles/adaptive3.dir/src/adaptive3.cpp.i
+.PHONY : src/adaptive3.cpp.i
+
+src/adaptive3.s: src/adaptive3.cpp.s
+
+.PHONY : src/adaptive3.s
+
+# target to generate assembly for a file
+src/adaptive3.cpp.s:
+	$(MAKE) -f CMakeFiles/adaptive3.dir/build.make CMakeFiles/adaptive3.dir/src/adaptive3.cpp.s
+.PHONY : src/adaptive3.cpp.s
 
 src/kinematics.o: src/kinematics.cpp.o
 
@@ -375,6 +441,33 @@ src/matplotlib.cpp.s:
 	$(MAKE) -f CMakeFiles/matplotlib.dir/build.make CMakeFiles/matplotlib.dir/src/matplotlib.cpp.s
 .PHONY : src/matplotlib.cpp.s
 
+src/parameter_identify.o: src/parameter_identify.cpp.o
+
+.PHONY : src/parameter_identify.o
+
+# target to build an object file
+src/parameter_identify.cpp.o:
+	$(MAKE) -f CMakeFiles/parameter_identify.dir/build.make CMakeFiles/parameter_identify.dir/src/parameter_identify.cpp.o
+.PHONY : src/parameter_identify.cpp.o
+
+src/parameter_identify.i: src/parameter_identify.cpp.i
+
+.PHONY : src/parameter_identify.i
+
+# target to preprocess a source file
+src/parameter_identify.cpp.i:
+	$(MAKE) -f CMakeFiles/parameter_identify.dir/build.make CMakeFiles/parameter_identify.dir/src/parameter_identify.cpp.i
+.PHONY : src/parameter_identify.cpp.i
+
+src/parameter_identify.s: src/parameter_identify.cpp.s
+
+.PHONY : src/parameter_identify.s
+
+# target to generate assembly for a file
+src/parameter_identify.cpp.s:
+	$(MAKE) -f CMakeFiles/parameter_identify.dir/build.make CMakeFiles/parameter_identify.dir/src/parameter_identify.cpp.s
+.PHONY : src/parameter_identify.cpp.s
+
 src/root_tutorials.o: src/root_tutorials.cpp.o
 
 .PHONY : src/root_tutorials.o
@@ -456,6 +549,33 @@ src/wukong2.cpp.s:
 	$(MAKE) -f CMakeFiles/wukong2.dir/build.make CMakeFiles/wukong2.dir/src/wukong2.cpp.s
 .PHONY : src/wukong2.cpp.s
 
+src/wukong3.o: src/wukong3.cpp.o
+
+.PHONY : src/wukong3.o
+
+# target to build an object file
+src/wukong3.cpp.o:
+	$(MAKE) -f CMakeFiles/wukong3.dir/build.make CMakeFiles/wukong3.dir/src/wukong3.cpp.o
+.PHONY : src/wukong3.cpp.o
+
+src/wukong3.i: src/wukong3.cpp.i
+
+.PHONY : src/wukong3.i
+
+# target to preprocess a source file
+src/wukong3.cpp.i:
+	$(MAKE) -f CMakeFiles/wukong3.dir/build.make CMakeFiles/wukong3.dir/src/wukong3.cpp.i
+.PHONY : src/wukong3.cpp.i
+
+src/wukong3.s: src/wukong3.cpp.s
+
+.PHONY : src/wukong3.s
+
+# target to generate assembly for a file
+src/wukong3.cpp.s:
+	$(MAKE) -f CMakeFiles/wukong3.dir/build.make CMakeFiles/wukong3.dir/src/wukong3.cpp.s
+.PHONY : src/wukong3.cpp.s
+
 src/wukong_VMC.o: src/wukong_VMC.cpp.o
 
 .PHONY : src/wukong_VMC.o
@@ -516,21 +636,27 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... kinematics"
+	@echo "... kinematics_test"
+	@echo "... wukong"
+	@echo "... adaptive"
+	@echo "... adaptive3"
+	@echo "... wukong2"
+	@echo "... kinematics_foot"
+	@echo "... wukong3"
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
-	@echo "... matplotlib"
-	@echo "... wukong_test"
-	@echo "... root_tutorials"
 	@echo "... wukong_VMC"
-	@echo "... wukong2"
-	@echo "... adaptive"
-	@echo "... wukong"
-	@echo "... kinematics_test"
-	@echo "... kinematics_foot"
-	@echo "... kinematics"
+	@echo "... root_tutorials"
+	@echo "... parameter_identify"
+	@echo "... wukong_test"
+	@echo "... matplotlib"
 	@echo "... src/adaptive.o"
 	@echo "... src/adaptive.i"
 	@echo "... src/adaptive.s"
+	@echo "... src/adaptive3.o"
+	@echo "... src/adaptive3.i"
+	@echo "... src/adaptive3.s"
 	@echo "... src/kinematics.o"
 	@echo "... src/kinematics.i"
 	@echo "... src/kinematics.s"
@@ -543,6 +669,9 @@ help:
 	@echo "... src/matplotlib.o"
 	@echo "... src/matplotlib.i"
 	@echo "... src/matplotlib.s"
+	@echo "... src/parameter_identify.o"
+	@echo "... src/parameter_identify.i"
+	@echo "... src/parameter_identify.s"
 	@echo "... src/root_tutorials.o"
 	@echo "... src/root_tutorials.i"
 	@echo "... src/root_tutorials.s"
@@ -552,6 +681,9 @@ help:
 	@echo "... src/wukong2.o"
 	@echo "... src/wukong2.i"
 	@echo "... src/wukong2.s"
+	@echo "... src/wukong3.o"
+	@echo "... src/wukong3.i"
+	@echo "... src/wukong3.s"
 	@echo "... src/wukong_VMC.o"
 	@echo "... src/wukong_VMC.i"
 	@echo "... src/wukong_VMC.s"

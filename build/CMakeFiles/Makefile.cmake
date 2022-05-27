@@ -62,14 +62,17 @@ set(CMAKE_MAKEFILE_PRODUCTS
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/matplotlib.dir/DependInfo.cmake"
-  "CMakeFiles/wukong_test.dir/DependInfo.cmake"
-  "CMakeFiles/root_tutorials.dir/DependInfo.cmake"
-  "CMakeFiles/wukong_VMC.dir/DependInfo.cmake"
-  "CMakeFiles/wukong2.dir/DependInfo.cmake"
-  "CMakeFiles/adaptive.dir/DependInfo.cmake"
-  "CMakeFiles/wukong.dir/DependInfo.cmake"
-  "CMakeFiles/kinematics_test.dir/DependInfo.cmake"
-  "CMakeFiles/kinematics_foot.dir/DependInfo.cmake"
   "CMakeFiles/kinematics.dir/DependInfo.cmake"
+  "CMakeFiles/kinematics_test.dir/DependInfo.cmake"
+  "CMakeFiles/wukong.dir/DependInfo.cmake"
+  "CMakeFiles/adaptive.dir/DependInfo.cmake"
+  "CMakeFiles/adaptive3.dir/DependInfo.cmake"
+  "CMakeFiles/wukong2.dir/DependInfo.cmake"
+  "CMakeFiles/kinematics_foot.dir/DependInfo.cmake"
+  "CMakeFiles/wukong3.dir/DependInfo.cmake"
+  "CMakeFiles/wukong_VMC.dir/DependInfo.cmake"
+  "CMakeFiles/root_tutorials.dir/DependInfo.cmake"
+  "CMakeFiles/parameter_identify.dir/DependInfo.cmake"
+  "CMakeFiles/wukong_test.dir/DependInfo.cmake"
+  "CMakeFiles/matplotlib.dir/DependInfo.cmake"
   )

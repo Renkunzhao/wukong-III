@@ -52,11 +52,20 @@ target_link_libraries(kinematics_test PUBLIC kinematics kinematics_foot)
 add_library(adaptive src/adaptive.cpp)
 target_link_libraries(adaptive PUBLIC kinematics)
 
+add_library(adaptive3 src/adaptive3.cpp)
+target_link_libraries(adaptive3 PUBLIC kinematics)
+
+add_executable(parameter_identify src/parameter_identify.cpp)
+target_link_libraries(parameter_identify PUBLIC kinematics adaptive kinematics_foot)
+
 add_executable(wukong src/wukong.cpp)
 target_link_libraries(wukong PUBLIC kinematics adaptive kinematics_foot)
 
 add_executable(wukong2 src/wukong2.cpp)
 target_link_libraries(wukong2 PUBLIC kinematics adaptive kinematics_foot)
+
+add_executable(wukong3 src/wukong3.cpp)
+target_link_libraries(wukong3 PUBLIC kinematics adaptive3 kinematics_foot)
 
 add_executable(wukong_VMC src/wukong_VMC.cpp)
 target_link_libraries(wukong PUBLIC kinematics adaptive kinematics_foot)

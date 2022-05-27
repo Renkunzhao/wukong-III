@@ -18,11 +18,13 @@ typedef Eigen::Matrix< double , 3 , 1> Vec3;
 typedef Eigen::Matrix< double , 4 , 1> Vec4;
 typedef Eigen::Matrix< double , 5 , 1> Vec5;
 typedef Eigen::Matrix< double , 6 , 1> Vec6;
+typedef Eigen::Matrix< double , 9 , 1> Vec9;
 typedef Eigen::Matrix< double , 2 , 2> Mat2;
 typedef Eigen::Matrix< double , 3 , 3> Mat3;
 typedef Eigen::Matrix< double , 4 , 4> Mat4;
 typedef Eigen::Matrix< double , 5 , 5> Mat5;
 typedef Eigen::Matrix< double , 6 , 6> Mat6;
+typedef Eigen::Matrix< double , 9 , 9> Mat9;
 
 struct uLink
 {

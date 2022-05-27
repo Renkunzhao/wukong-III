@@ -22,6 +22,7 @@ class WKAdaptive{
     WKAdaptive();
     void inita(Vec2 _tau);
     void updateq(Vec2 _q, Vec2 _dq, Vec2 _qd, Vec2 _dqd);
+    void updates();
     void updatea();
     void updateY();
     void updatetau();

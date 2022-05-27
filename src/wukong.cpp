@@ -85,7 +85,7 @@ int main(int argc, char* argv[]) {
 
   //初始化WKLegKinematics类，用于正逆运动学、雅可比矩阵计算
   WKLegKinematics wkKin(posInit);
-  cout << "pTarget: " << wkKin.wkLink[12].p.transpose() << endl;
+  cout << "pTarget: " << wkKin.wkLink[12].p.transpose() << endl;                  
   //根据需要的质心高度计算各个关节角度
   Vec3 endPr, endPl;
   Mat3 endR;

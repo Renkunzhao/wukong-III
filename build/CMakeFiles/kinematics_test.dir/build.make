@@ -100,8 +100,6 @@ kinematics_test: /home/rkz/software/root/lib/libMultiProc.so
 kinematics_test: /home/rkz/software/root/lib/libROOTVecOps.so
 kinematics_test: /usr/lib/x86_64-linux-gnu/libpython3.8.so
 kinematics_test: libkinematics.a
-kinematics_test: libkinematics_foot.a
-kinematics_test: libkinematics.a
 kinematics_test: /opt/raisim/lib/libraisim.so
 kinematics_test: /opt/raisim/lib/libraisimPng.so
 kinematics_test: /opt/raisim/lib/libraisimZ.so

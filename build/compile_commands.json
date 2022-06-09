@@ -1,8 +1,23 @@
 [
 {
   "directory": "/home/rkz/桌面/simulation/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/matplotlib.dir/src/matplotlib.cpp.o -c /home/rkz/桌面/simulation/src/matplotlib.cpp",
+  "file": "/home/rkz/桌面/simulation/src/matplotlib.cpp"
+},
+{
+  "directory": "/home/rkz/桌面/simulation/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/root_tutorials.dir/src/root_tutorials.cpp.o -c /home/rkz/桌面/simulation/src/root_tutorials.cpp",
+  "file": "/home/rkz/桌面/simulation/src/root_tutorials.cpp"
+},
+{
+  "directory": "/home/rkz/桌面/simulation/build",
   "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/kinematics.dir/src/kinematics.cpp.o -c /home/rkz/桌面/simulation/src/kinematics.cpp",
   "file": "/home/rkz/桌面/simulation/src/kinematics.cpp"
+},
+{
+  "directory": "/home/rkz/桌面/simulation/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/forward_kinematics.dir/src/forward_kinematics.cpp.o -c /home/rkz/桌面/simulation/src/forward_kinematics.cpp",
+  "file": "/home/rkz/桌面/simulation/src/forward_kinematics.cpp"
 },
 {
   "directory": "/home/rkz/桌面/simulation/build",
@@ -31,23 +46,23 @@
 },
 {
   "directory": "/home/rkz/桌面/simulation/build",
-  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/kinematics_foot.dir/src/kinematics_foot.cpp.o -c /home/rkz/桌面/simulation/src/kinematics_foot.cpp",
-  "file": "/home/rkz/桌面/simulation/src/kinematics_foot.cpp"
-},
-{
-  "directory": "/home/rkz/桌面/simulation/build",
   "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/wukong3.dir/src/wukong3.cpp.o -c /home/rkz/桌面/simulation/src/wukong3.cpp",
   "file": "/home/rkz/桌面/simulation/src/wukong3.cpp"
 },
 {
   "directory": "/home/rkz/桌面/simulation/build",
-  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/wukong_VMC.dir/src/wukong_VMC.cpp.o -c /home/rkz/桌面/simulation/src/wukong_VMC.cpp",
-  "file": "/home/rkz/桌面/simulation/src/wukong_VMC.cpp"
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/wukong3plot.dir/src/wukong3plot.cpp.o -c /home/rkz/桌面/simulation/src/wukong3plot.cpp",
+  "file": "/home/rkz/桌面/simulation/src/wukong3plot.cpp"
 },
 {
   "directory": "/home/rkz/桌面/simulation/build",
-  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/root_tutorials.dir/src/root_tutorials.cpp.o -c /home/rkz/桌面/simulation/src/root_tutorials.cpp",
-  "file": "/home/rkz/桌面/simulation/src/root_tutorials.cpp"
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/wukong_up.dir/src/wukong_up.cpp.o -c /home/rkz/桌面/simulation/src/wukong_up.cpp",
+  "file": "/home/rkz/桌面/simulation/src/wukong_up.cpp"
+},
+{
+  "directory": "/home/rkz/桌面/simulation/build",
+  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/wukong_VMC.dir/src/wukong_VMC.cpp.o -c /home/rkz/桌面/simulation/src/wukong_VMC.cpp",
+  "file": "/home/rkz/桌面/simulation/src/wukong_VMC.cpp"
 },
 {
   "directory": "/home/rkz/桌面/simulation/build",
@@ -58,10 +73,5 @@
   "directory": "/home/rkz/桌面/simulation/build",
   "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/wukong_test.dir/src/wukong_test.cpp.o -c /home/rkz/桌面/simulation/src/wukong_test.cpp",
   "file": "/home/rkz/桌面/simulation/src/wukong_test.cpp"
-},
-{
-  "directory": "/home/rkz/桌面/simulation/build",
-  "command": "/bin/x86_64-linux-gnu-g++-9  -DEIGEN_STACK_ALLOCATION_LIMIT=0 -DRSDEBUG -DdIDEDOUBLE -I/usr/include/eigen3 -I/home/rkz/software/root/include -I/usr/include/python3.8 -I/home/rkz/.local/lib/python3.8/site-packages/numpy/core/include -I/home/rkz/桌面/simulation/include -isystem /opt/raisim/include  -g   -o CMakeFiles/matplotlib.dir/src/matplotlib.cpp.o -c /home/rkz/桌面/simulation/src/matplotlib.cpp",
-  "file": "/home/rkz/桌面/simulation/src/matplotlib.cpp"
 }
 ]

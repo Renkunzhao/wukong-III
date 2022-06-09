@@ -88,22 +88,23 @@ int main(int argc, char* argv[]) {
   //初始化WKLegKinematics类，根据需要的质心高度计算各个关节角度
   Eigen::VectorXd posInit(posDim), posTarget(posDim), velTarget(dof), feedForwardF(dof);
   Eigen::VectorXd pos(posDim), vel(dof), velLast(dof), force(dof);
-  posTarget <<  0,0, 0.75, 1,0,0,0,
+  double CoMTheta = 0.1;
+  double CoMz = 0.7;
+  posTarget <<  0,0, CoMz+0.05, 1,0,0,0,
                 0., 
                 0,0,0,0, 0,0,0,0,
                 0., 0.042578, -0.492781, 0.97759, -0.03982, -0.535,
                 0., -0.042567, -0.498771, 0.97759, 0.03964, -0.535;
   WKLegKinematics wkKin(posTarget);
-  double pitchTheta = 0.1;
-  Eigen::AngleAxisd pitchAngleCoM(pitchTheta,Eigen::Vector3d::UnitY());
+  Eigen::AngleAxisd pitchAngleCoM(CoMTheta,Eigen::Vector3d::UnitY());
   Eigen::Quaterniond quaternion(pitchAngleCoM);
-  Eigen::AngleAxisd pitchAngle(-pitchTheta,Eigen::Vector3d::UnitY());
+  Eigen::AngleAxisd pitchAngle(-CoMTheta,Eigen::Vector3d::UnitY());
   Vec3 endPr, endPl;
   Mat3 endR;
   // endPr << 0.023,-0.122,-0.8;
   // endPl << 0.023,0.122,-0.8;
-  endPr << -0.,-0.122,-0.7;
-  endPl << 0.,0.122,-0.7;
+  endPr << -0.,-0.122,-CoMz;
+  endPl << 0.,0.122,-CoMz;
   endPr = pitchAngle.matrix()*endPr;
   endPl = pitchAngle.matrix()*endPl;
   endR = pitchAngle.matrix();
@@ -185,10 +186,23 @@ int main(int argc, char* argv[]) {
   auto grCoMz = new TGraph();  
   auto grCoMtheta = new TGraph();  
 
+  TCanvas* c2 = new TCanvas("c2", "dynamics", 0, 0, 1400, 600);
+  TMultiGraph *mgA1 = new TMultiGraph();
+  auto gra1 = new TGraph();
+  auto gra2 = new TGraph();
+  auto gra3 = new TGraph();
+  auto gra4 = new TGraph();
+  auto gra5 = new TGraph();
+  auto gra6 = new TGraph();
+  TMultiGraph *mgA2 = new TMultiGraph();
+  auto gra7 = new TGraph();
+  auto gra8 = new TGraph();
+  auto gra9 = new TGraph();
+
   //快速站稳
   raisim::Mat<3, 3> bodyRotation;
   Vec3 thetad,theta;
-  thetad << 0,pitchTheta,0;
+  thetad << 0,CoMTheta,0;
   for (int i=0; i<2000; i++) {
     auto pos = wk3->getGeneralizedCoordinate().e();
     auto vel = wk3->getGeneralizedVelocity().e();
@@ -197,7 +211,7 @@ int main(int argc, char* argv[]) {
     wkKin.updateLinkq(pos);
 
     //根据雅可比矩阵计算关节力矩
-    fTorso << 0,0,0*(0.8-pos(2)) + 0*(0-vel(2)),
+    fTorso << 0,0,0*(CoMz+0.044-pos(2)) + 0*(0-vel(2)),
               0*(thetad[0]-theta[0]) + 0*(0-vel(3)),
               2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),
               0;
@@ -215,7 +229,7 @@ int main(int argc, char* argv[]) {
   velLast.setZero();
   force.setZero();
   //增加负载
-  for (int i=0; i<14000; i++) {
+  for (int i=0; i<1000; i++) {
     auto time = world.getWorldTime();
     pos = wk3->getGeneralizedCoordinate().e();
     velLast = vel;
@@ -245,7 +259,7 @@ int main(int argc, char* argv[]) {
     // wk3->setGeneralizedForce(feedForwardF);
 
     //VMC+Jac 有负载前馈
-    // fTorso << 0,0,2500*(0.8-pos(2)) + 20*(0-vel(2)),
+    // fTorso << 0,0,0*(CoMz+0.044-pos(2)) + 0*(0-vel(2)),
     //           0*(thetad[0]-theta[0]) + 0*(0-vel(3)),
     //           2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),
     //           0;
@@ -297,10 +311,20 @@ int main(int argc, char* argv[]) {
       gr4_3->AddPoint(time, lAdapt.tau(2));
       gr5_3->AddPoint(time, lAdapt.tau(1));
       gr6_3->AddPoint(time, lAdapt.tau(0));
+
+      gra1->AddPoint(time, rAdapt.a_(0));
+      gra2->AddPoint(time, rAdapt.a_(1));
+      gra3->AddPoint(time, rAdapt.a_(2));
+      gra4->AddPoint(time, rAdapt.a_(3));
+      gra5->AddPoint(time, rAdapt.a_(4));
+      gra6->AddPoint(time, rAdapt.a_(5));
+      gra7->AddPoint(time, rAdapt.a_(6));
+      gra8->AddPoint(time, rAdapt.a_(7));
+      gra9->AddPoint(time, rAdapt.a_(8));
     }
 
-    if(i>2000&&i<8000){
-      load << 0,0,-550,0,0,0;
+    if(i>2000&&i<10000){
+      load << 0,0,-450,0,0,0;
       wk3->setExternalForce(0, load);
     }
     else{ 
@@ -406,6 +430,20 @@ int main(int argc, char* argv[]) {
     mg6->Add(gr6_3);
     mg6->Draw("AL");
 
+    c2->Divide(2,1);
+    c2->cd(1);
+    mgA1->Add(gra1);
+    mgA1->Add(gra2);
+    mgA1->Add(gra3);
+    mgA1->Add(gra4);
+    mgA1->Add(gra5);
+    mgA1->Add(gra6);
+    mgA1->Draw("AL");
+    c2->cd(2);
+    mgA2->Add(gra7);
+    mgA2->Add(gra8);
+    mgA2->Add(gra9);
+    mgA2->Draw("AL");
     app.Run();
   }
 

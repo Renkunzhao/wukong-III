@@ -8,12 +8,14 @@ WKAdaptive3::WKAdaptive3(){
     dqd.setZero();
     ddqd.setZero();
     Kd.setZero();
-    Kd.diagonal() << 25, 25, 25;
+    Kd.diagonal() << 80, 25, 40;
     lambda.setZero();
-    lambda.diagonal() <<  8, 8, 8;
+    lambda.diagonal() <<  5, 8, 10;
     gamma.setZero();
-    gamma.diagonal() << 0.005, 0.005, 0.005, 0.005, 0.005, 0.005, 0.2, 0.2, 0.2;
+    gamma.diagonal() << 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 1.5, 1.2, 7;
+    // gamma.diagonal() << 0.003, 0.0003, 0.0003, 0.003, 0.0005, 0.0001, 1.5, 1.2, 7;
     // gamma.diagonal() << 0.1, 0.1, 0.1, 0.1, 0.3, 0.3, 3, 3, 3;
+    // a_ << 0,0,0,0,0,0,0,0,0;
     a_ << 3,3,2.5,3,1.9,1.9,91,84,53;
 }
 

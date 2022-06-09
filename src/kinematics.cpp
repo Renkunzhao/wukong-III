@@ -244,11 +244,11 @@ void WKLegKinematics::inverseKin(Vec3 endPos, Mat3 endR, const string& LegName)
             cout << "LegName error!!!" << endl;
         }
         err = getVWerr(targetLink, wkLink[idx[5]]);
-        if(err.norm()<1e-6){
+        if(err.norm()<1e-4){
             qRangeHandler();
-            cout << "InverseKinematics complete" << endl;
-            cout << "iteration number: " << n << endl;
-            cout << "error: " << err.norm() << endl;
+            // cout << "InverseKinematics complete" << endl;
+            // cout << "iteration number: " << n << endl;
+            // cout << "error: " << err.norm() << endl;
             return;
         } 
         dq = lambda * (Jac.fullPivLu().solve(err));     //为防止奇异姿态下雅可比不可逆，采用LU分解，但是如果初始姿态为奇异姿态，貌似无法向真值靠近
@@ -258,9 +258,9 @@ void WKLegKinematics::inverseKin(Vec3 endPos, Mat3 endR, const string& LegName)
         }
         forwardKin(0);
     }
-    cout << "InverseKinematics error!!!" << endl;
-    cout << "iteration number: " << n << endl;
-    cout << "error: " << err.norm() << endl;
+    // cout << "InverseKinematics error!!!" << endl;
+    // cout << "iteration number: " << n << endl;
+    // cout << "error: " << err.norm() << endl;
 }
 
 void Fwd_Kin(Vec3& endPos, const string& LegName, Vec4 nowLegPos)

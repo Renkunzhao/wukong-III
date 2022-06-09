@@ -185,27 +185,27 @@ int main(int argc, char* argv[]) {
     wkKin.updateLinkq(pos);
 
     //抑制晃动
-    posTarget[18] = posInit[18] - 10*(0-theta[1]);
-    posTarget[24] = posInit[24] - 10*(0-theta[1]);//加个增益使pitch更稳
-    posTarget[21] = posInit[21] - 10*(0-theta[1]);
-    posTarget[27] = posInit[27] - 10*(0-theta[1]);//加个增益使pitch更稳
-    wk3->setPdTarget(posTarget, velTarget);
+    // posTarget[18] = posInit[18] - 10*(0-theta[1]);
+    // posTarget[24] = posInit[24] - 10*(0-theta[1]);//加个增益使pitch更稳
+    // posTarget[21] = posInit[21] - 10*(0-theta[1]);
+    // posTarget[27] = posInit[27] - 10*(0-theta[1]);//加个增益使pitch更稳
+    // wk3->setPdTarget(posTarget, velTarget);
 
     //VMC
-    fTorso << 0,0,0,0,2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),0;
-    auto rtau = wkKin.RJac.transpose()*(-fTorso/2);
-    auto ltau = wkKin.LJac.transpose()*(-fTorso/2);
-    feedForwardF << Eigen::VectorXd::Zero(dof-12), rtau, ltau;
+    // fTorso << 0,0,0,0,2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),0;
+    // auto rtau = wkKin.RJac.transpose()*(-fTorso/2);
+    // auto ltau = wkKin.LJac.transpose()*(-fTorso/2);
+    // feedForwardF << Eigen::VectorXd::Zero(dof-12), rtau, ltau;
     // wk3->setGeneralizedForce(feedForwardF);
 
     //根据雅可比矩阵计算关节力矩
-    fTorso << 0,0,0*(0.8-pos(2)) + 0*(0-vel(2)),
-              0*(thetad[0]-theta[0]) + 0*(0-vel(3)),
-              2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),
-              0;
-    wkKin.RTorque = wkKin.RJac.transpose()*((-fTorso+load)/2);
-    wkKin.LTorque = wkKin.LJac.transpose()*((-fTorso+load)/2);
-    feedForwardF << Eigen::VectorXd::Zero(dof-12), wkKin.RTorque, wkKin.LTorque;
+    // fTorso << 0,0,0*(0.8-pos(2)) + 0*(0-vel(2)),
+    //           0*(thetad[0]-theta[0]) + 0*(0-vel(3)),
+    //           2500*(thetad[1]-theta[1]) + 20*(0-vel(4)),
+    //           0;
+    // wkKin.RTorque = wkKin.RJac.transpose()*((-fTorso+load)/2);
+    // wkKin.LTorque = wkKin.LJac.transpose()*((-fTorso+load)/2);
+    // feedForwardF << Eigen::VectorXd::Zero(dof-12), wkKin.RTorque, wkKin.LTorque;
     // wk3->setGeneralizedForce(feedForwardF);
 
     //自适应控制算法

@@ -172,21 +172,6 @@ int main(int argc, char* argv[]) {
     cout << "M:\n" << wk3->getMassMatrix() << endl;
     cout << "h:\n" << wk3->getNonlinearities(world.getGravity()) << endl;
 
-	// //定义文件输出流 
-	// ofstream oFile; 
- 
-	// //打开要输出的文件 
-	// oFile.open("../M0.csv", ios::out | ios::trunc);    // 这样就很容易的输出一个需要的excel 文件
-	// for(int i=0;i<dof;i++){
-    //     for(int j=0;j<dof;j++){
-    //         oFile << wk3->getMassMatrix()(i,j) << "," ;
-    //         cout << wk3->getMassMatrix()(i,j) << endl ;
-    //     }
-    //     oFile << endl;
-    // }
- 
-	// oFile.close();
-
     /// launch raisim server
     //  运行前最好先打开unity可视化界面
     raisim::RaisimServer server(&world);

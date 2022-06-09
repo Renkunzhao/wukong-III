@@ -43,11 +43,12 @@ link_libraries( ${raisim_LIBRARIES}
 # Build Targets
 #==
 add_library(kinematics src/kinematics.cpp)
-add_library(kinematics_foot src/kinematics_foot.cpp)
-target_link_libraries(kinematics_foot PUBLIC kinematics)
+
+add_executable(forward_kinematics src/forward_kinematics.cpp)
+target_link_libraries(forward_kinematics PUBLIC kinematics)
 
 add_executable(kinematics_test src/kinematics_test.cpp)
-target_link_libraries(kinematics_test PUBLIC kinematics kinematics_foot)
+target_link_libraries(kinematics_test PUBLIC kinematics)
 
 add_library(adaptive src/adaptive.cpp)
 target_link_libraries(adaptive PUBLIC kinematics)
@@ -56,19 +57,25 @@ add_library(adaptive3 src/adaptive3.cpp)
 target_link_libraries(adaptive3 PUBLIC kinematics)
 
 add_executable(parameter_identify src/parameter_identify.cpp)
-target_link_libraries(parameter_identify PUBLIC kinematics adaptive kinematics_foot)
+target_link_libraries(parameter_identify PUBLIC kinematics adaptive)
 
 add_executable(wukong src/wukong.cpp)
-target_link_libraries(wukong PUBLIC kinematics adaptive kinematics_foot)
+target_link_libraries(wukong PUBLIC kinematics adaptive)
 
 add_executable(wukong2 src/wukong2.cpp)
-target_link_libraries(wukong2 PUBLIC kinematics adaptive kinematics_foot)
+target_link_libraries(wukong2 PUBLIC kinematics adaptive)
 
 add_executable(wukong3 src/wukong3.cpp)
-target_link_libraries(wukong3 PUBLIC kinematics adaptive3 kinematics_foot)
+target_link_libraries(wukong3 PUBLIC kinematics adaptive3)
+
+add_executable(wukong3plot src/wukong3plot.cpp)
+target_link_libraries(wukong3plot PUBLIC kinematics adaptive3)
+
+add_executable(wukong_up src/wukong_up.cpp)
+target_link_libraries(wukong_up PUBLIC kinematics adaptive3)
 
 add_executable(wukong_VMC src/wukong_VMC.cpp)
-target_link_libraries(wukong PUBLIC kinematics adaptive kinematics_foot)
+target_link_libraries(wukong_VMC PUBLIC kinematics adaptive kinematics_foot)
 
 add_executable(wukong_test src/wukong_test.cpp)
 target_link_libraries(wukong_test PUBLIC kinematics adaptive)

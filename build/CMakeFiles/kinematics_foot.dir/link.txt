@@ -1,2 +1,0 @@
-/bin/ar qc libkinematics_foot.a  CMakeFiles/kinematics_foot.dir/src/kinematics_foot.cpp.o
-/bin/ranlib libkinematics_foot.a

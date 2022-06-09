@@ -1,2 +1,0 @@
-/bin/ar qc libadaptive.a  CMakeFiles/adaptive.dir/src/adaptive.cpp.o
-/bin/ranlib libadaptive.a
